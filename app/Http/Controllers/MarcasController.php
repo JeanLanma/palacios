@@ -14,7 +14,9 @@ class MarcasController extends Controller
      */
     public function index()
     {
-        //
+        $marcas = Marcas::all();
+
+        return view('admin.marcas', compact('marcas'));
     }
 
     /**
@@ -85,9 +87,10 @@ class MarcasController extends Controller
      * @param  \App\Models\Marcas  $marcas
      * @return \Illuminate\Http\Response
      */
-    public function edit(Marcas $marcas)
+    public function edit(Marcas $marcas, $id)
     {
-        //
+        $marca = Marcas::find($id);
+        return view('admin.edit', compact('marca'));
     }
 
     /**

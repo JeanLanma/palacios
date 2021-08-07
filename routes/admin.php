@@ -16,4 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('admin');
+Route::get('/registros', [MarcasController::class, 'index'])->name('admin.marcas.index');
+Route::get('/marcas/{id}/edit', [MarcasController::class, 'edit'])->name('admin.marcas.edit');
 Route::post('/marcas', [MarcasController::class, 'store'])->name('admin.marcas.store');

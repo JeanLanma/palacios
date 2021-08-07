@@ -242,6 +242,11 @@ return [
             'url'         => 'admin',
             'icon'        => 'fas fa-tachometer-alt',
         ],
+        [
+            'text'        => 'Registros',
+            'url'         => 'admin/registros',
+            'icon'        => 'far fa-address-card',
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
