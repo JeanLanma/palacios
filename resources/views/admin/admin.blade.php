@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <p class="h2">Agregar Nuevo Registro</p>
 
-                        <form method="POST">
+                        <form method="POST" action="{{ route('admin.marcas.store') }}">
                         @csrf
                             {{-- Tipo de Marcas --}}
                             <div class="form-row">
@@ -164,7 +164,7 @@
                                     <input name="responsable_cp" type="text" class="form-control" id="responsable_cp">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="responsable_municipio">Municipio | Alcalia</label>
+                                    <label for="responsable_municipio">Municipio | Alcaldia</label>
                                     <input name="responsable_municipio" type="text" class="form-control" id="responsable_municipio">
                                 </div>
                             </div>

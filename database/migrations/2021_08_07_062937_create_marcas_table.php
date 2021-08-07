@@ -18,6 +18,7 @@ class CreateMarcasTable extends Migration
             $table->text('denominacion_marca');
             $table->text('descripcion_clase');
             $table->text('tipo');
+            $table->text('img_tipo_marca');
             $table->text('numero_expediente');
             $table->text('fecha_legal');
             $table->text('logo');
