@@ -22,8 +22,8 @@
                             {{-- Tipo de Marcas --}}
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="denom_nombre_marca">Denominación Nombre de Marca</label>
-                                    <input type="text" class="form-control" id="inputEmail4" name="denom_nombre_marca">
+                                    <label for="denominacion_marca">Denominación Nombre de Marca</label>
+                                    <input type="text" class="form-control" id="denominacion_marca" name="denominacion_marca">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="descripcion_clase">Descripción de la Clase</label>
@@ -32,8 +32,8 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="tipo_normativo">Tipo de Marcas: </label>
-                                <select class="custom-select mb-4" id="tipo_normativo" name="select_tipo_marca">
+                                <label for="tipo">Tipo de Marcas: </label>
+                                <select class="custom-select mb-4" id="tipo" name="tipo">
                                     <option disabled selected>-- Elegir un tipo --</option>
                                     <option>NOMINATIVO</option>
                                     <option>Mixta</option>
@@ -52,28 +52,28 @@
                             {{-- Datos Generales --}}
                             
                             <div class="form-group">
-                                <label for="expediente">Expediente</label>
-                                <input type="text" class="form-control" id="expediente" placeholder="exp..." name="expediente">
+                                <label for="numero_expediente">Expediente</label>
+                                <input type="text" class="form-control" id="numero_expediente" name="numero_expediente">
                             </div>
                             <label for="img_logo">Logo</label>
                             <div class="custom-file mb-4">
-                                    <input type="file" class="custom-file-input" id="imgLogo" name="img_logo">
-                                    <label class="custom-file-label" for="imgLogo" data-browse="Buscar Archivo">Cargar imagen gif</label>
+                                    <input type="file" class="custom-file-input" id="imgLogo" name="logo">
+                                    <label class="custom-file-label" for="logo" data-browse="Buscar Archivo">Cargar imagen gif</label>
                             </div>
                             <div class="form-group row">
                                 <div class="col-6">
-                                    <label for="fecha_legal_ingreso">Fecha Legal | Ingreso al IMPI:</label>
-                                    <input type="date" id="start"  name="fecha_legal_ingreso">
+                                    <label for="fecha_legal">Fecha Legal | Ingreso al IMPI:</label>
+                                    <input type="date" id="fecha_legal"  name="fecha_legal">
                                 </div>
                                 <div class="col-6">
                                     <label for="fecha_concesion" class="mr-3">Fecha de Concesion:</label>
-                                    <input type="date" id="start"  name="fecha_concesion">
+                                    <input name="fecha_consecion" type="date" id="start">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-4">
-                                    <label for="no_marca_registro">No. Marca o Registro</label>
-                                    <input name="no_marca_registro" type="text" class="form-control" id="no_marca_registro" placeholder="Numero de marca o regisro..">
+                                    <label for="numero_marca">No. Marca o Registro</label>
+                                    <input name="numero_marca" type="text" class="form-control" id="numero_marca" placeholder="Numero de marca o regisro..">
                                 </div>
                                 <div class="form-group col-4">
                                     <label for="clase">Clase</label>
@@ -100,13 +100,13 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-4">
-                                    <label for="n_oficna">Numero de Oficina</label>
-                                    <input name="n_oficna" type="number" id="n_oficna" class="form-control">
+                                    <label for="numero_oficina">Numero de Oficina</label>
+                                    <input name="numero_oficina" type="number" id="n_oficna" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="comentarios">comentarios</label>
-                                <textarea class="form-control" id="comentarios"placeholder="...comentarios"></textarea>
+                                <textarea name="comentarios" class="form-control" id="comentarios"placeholder="...comentarios"></textarea>
                             </div>
                             <div class="form-group">
                                     <label for="fecha_comprobacion">Fecha de Comprobación </label>
@@ -117,15 +117,15 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="titulo_marca">Titular o Dueño de la marca</label>
-                                    <input name="titulo_marca" type="text" class="form-control" id="titulo_marca">
+                                    <input name="titular_marca" type="text" class="form-control" id="titulo_marca">
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="telefono_dueño">Telefono</label>
-                                    <input  name="telefono_dueño" type="text" class="form-control" id="telefono_dueño">
+                                    <label for="titular_telefono">Telefono</label>
+                                    <input  name="titular_telefono" type="text" class="form-control" id="titular_telefono">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="correo_dueño">Correo</label>
-                                    <input name="correo_dueño" type="text" class="form-control" id="correo_dueño">
+                                    <label for="titular_correo">Correo</label>
+                                    <input name="titular_correo" type="text" class="form-control" id="titular_correo">
                                 </div>
                             </div>
                             {{--Datos responsable--}}
@@ -136,32 +136,36 @@
                                 <input name="responsable_marca" type="text" class="form-control" id="responsable_marca">
                                 </div>
                                 <div class="form-group col-md-6">
-                                <label for="puesto_responsable">Puesto</label>
-                                <input name="puesto_responsable" type="text" class="form-control" id="puesto_responsable">
+                                <label for="responsable_puesto">Puesto</label>
+                                <input name="responsable_puesto" type="text" class="form-control" id="responsable_puesto">
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-6">
-                                    <label for="responsable_tel">Telefono</label>
-                                    <input name="responsable_tel" type="text" class="form-control" id="inputAddress">
+                                <div class="form-group col-4">
+                                    <label for="responsable_calle">Calle</label>
+                                    <input name="responsable_calle" type="text" class="form-control" id="responsable_calle">
                                 </div>
-                                <div class="form-group col-6">
+                                <div class="form-group col-3">
+                                    <label for="responsable_telefono">Telefono</label>
+                                    <input name="responsable_telefono" type="text" class="form-control" id="responsable_telefono">
+                                </div>
+                                <div class="form-group col-5">
                                     <label for="responsable_correo">Correo</label>
                                     <input  name="responsable_correo" type="email" class="form-control" id="responsable_correo">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label for="colonia">Colonia</label>
-                                    <input name="colonia" type="text" class="form-control" id="colonia">
+                                    <label for="responsable_colonia">Colonia</label>
+                                    <input name="responsable_colonia" type="text" class="form-control" id="colonia">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="codigo_postal">Codigo Postal</label>
-                                    <input name="codigo_postal" type="text" class="form-control" id="codigo_postal">
+                                    <label for="responsable_cp">Codigo Postal</label>
+                                    <input name="responsable_cp" type="text" class="form-control" id="responsable_cp">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="municipio">Municipio | Alcalia</label>
-                                    <input name="municipio" type="text" class="form-control" id="codigo_postal">
+                                    <label for="responsable_municipio">Municipio | Alcalia</label>
+                                    <input name="responsable_municipio" type="text" class="form-control" id="responsable_municipio">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Agregar Registro</button>
@@ -186,7 +190,7 @@
             return local.toJSON().slice(0,10);
         });
 
-        $("#tipo_normativo").on('change',function(event){
+        $("#tipo").on('change',function(event){
         event.preventDefault();
         if(this.value != 'NOMINATIVO'){
             $('#imgTipoMarca').prop("disabled", false);
