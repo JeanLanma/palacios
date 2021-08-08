@@ -14,7 +14,7 @@
     <div class="error-notice" id="close-alert">
         <div class="oaerror success">
         <strong>Muy Bien!</strong> - {{session()->get('success')}}
-        </div>
+        </div> 
     </div>
 @endif
 @if ($errors->any())
