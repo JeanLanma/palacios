@@ -62,7 +62,7 @@
                                 </small>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="imgTipoMarca" name="img_tipo_marca">
-                                    <label class="custom-file-label" for="imgTipoMarca" data-browse="Buscar Archivo">Cargar imagen gif</label>
+                                    <label class="custom-file-label" for="imgTipoMarca" data-browse="Buscar Archivo" id="imgTypeLabel">Cargar imagen gif</label>
                                 </div>
                                 <div>
                                     <div>
@@ -89,7 +89,7 @@
                             <label for="img_logo">Logo</label>
                             <div class="custom-file mb-4">
                                     <input type="file" class="custom-file-input" id="imgLogo" name="logo">
-                                    <label class="custom-file-label" for="logo" data-browse="Buscar Archivo">Cargar imagen gif</label>
+                                    <label class="custom-file-label" for="logo" data-browse="Buscar Archivo" id="imgLogoLabel">Cargar imagen gif</label>
                             </div>
                             <div>
                                 <div>
@@ -230,12 +230,14 @@
             let file = $('#imgTipoMarca')[0].files[0];
             let url = URL.createObjectURL(file);
             preview.attr('src', url);
+            $('#imgTypeLabel').text(file.name);
         })
         let preview_logo = $('#preview_logo');
         $('#imgLogo').on('change', function(){
             let file = $('#imgLogo')[0].files[0];
             let url = URL.createObjectURL(file);
             preview_logo.attr('src', url);
+            $('#imgLogoLabel').text(file.name);
         });
 
         $(document).on('DOMContentLoaded', function(){
