@@ -1,14 +1,7 @@
-<!DOCTYPE HTML>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-	<head>
-		<title>Eventually by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="is-preload">
+@extends('layouts.app')
 
-		<!-- Header -->
+@section('content')
+<!-- Header -->
 			<header id="header">
 				<h1>Palacios</h1>
 				<p>Un proyecto sencillo pero potente<br />
@@ -23,12 +16,4 @@
 			<a href="{{ route('admin')}}">
 				<button type="button" class="btn btn-info">Inresar al sistema</button>
 			</a>
-
-		<!-- Footer -->
-			<footer id="footer">
-			</footer>
-
-		<!-- Scripts -->
-		<script src="assets/js/main.js"></script>
-	</body>
-</html>
+@stop
