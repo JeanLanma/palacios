@@ -10,6 +10,24 @@
 
 @section('content')
     <section class="content">
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="h3">Imagen de Marca</div>
+                        <img src="/storage/{{$marca->img_tipo_marca}}" class="img-fluid" alt="Imagen de tipo de marca">
+                    </div>
+                    <div class="col-md-6">
+                    <div class="h3">Imagen Logo</div>
+                        <img src="/storage/{{$marca->logo}}" class="img-fluid" alt="Logo de la marca">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -17,7 +35,7 @@
                     <div class="card-body">
                         <p class="h2">Ver Detalle | Editar</p>
 
-                        <form method="POST" action="#">
+                        <form method="POST" action="{{ route('admin.marcas.update', $marca->id) }}" enctype="multipart/form-data">
                         @csrf
                             {{-- Tipo de Marcas --}}
                             <div class="form-row">

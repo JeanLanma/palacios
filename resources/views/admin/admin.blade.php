@@ -9,6 +9,15 @@
 @stop
 
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -17,17 +26,17 @@
                     <div class="card-body">
                         <p class="h2">Agregar Nuevo Registro</p>
 
-                        <form method="POST" action="{{ route('admin.marcas.store') }}">
+                        <form method="POST" action="{{ route('admin.marcas.store') }}" enctype="multipart/form-data">
                         @csrf
                             {{-- Tipo de Marcas --}}
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="denominacion_marca">Denominación Nombre de Marca</label>
-                                    <input type="text" class="form-control" id="denominacion_marca" name="denominacion_marca">
+                                    <input type="text" class="form-control" id="denominacion_marca" name="denominacion_marca" value="{{old('denominacion_marca')}}">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="descripcion_clase">Descripción de la Clase</label>
-                                    <input type="text" class="form-control" id="descripcion_clase" name="descripcion_clase">
+                                    <input type="text" class="form-control" id="descripcion_clase" name="descripcion_clase" value="{{old('descripcion_clase')}}">
                                 </div>
                             </div>
                             
@@ -35,10 +44,10 @@
                                 <label for="tipo">Tipo de Marcas: </label>
                                 <select class="custom-select mb-4" id="tipo" name="tipo">
                                     <option disabled selected>-- Elegir un tipo --</option>
-                                    <option>NOMINATIVO</option>
-                                    <option>Mixta</option>
-                                    <option>Tridimensional </option>
-                                    <option>Innominada </option>
+                                    <option {{old('descripcion_clase')}}>NOMINATIVO</option>
+                                    <option {{old('descripcion_clase')}}>Mixta</option>
+                                    <option {{old('descripcion_clase')}}>Tridimensional </option>
+                                    <option {{old('descripcion_clase')}}>Innominada </option>
                                 </select>
                                 <small id="tipoMarcaHelp" class="form-text text-muted">
                                  En caso de que sea tipo Mixta, Tridimensional o Innominada debe agregar una imagen. Nominativo no oncluye imagen
@@ -53,7 +62,7 @@
                             
                             <div class="form-group">
                                 <label for="numero_expediente">Expediente</label>
-                                <input type="text" class="form-control" id="numero_expediente" name="numero_expediente">
+                                <input type="text" class="form-control" id="numero_expediente" name="numero_expediente" value="{{old('numero_expediente')}}">
                             </div>
                             <label for="img_logo">Logo</label>
                             <div class="custom-file mb-4">
@@ -63,69 +72,69 @@
                             <div class="form-group row">
                                 <div class="col-6">
                                     <label for="fecha_legal">Fecha Legal | Ingreso al IMPI:</label>
-                                    <input type="date" id="fecha_legal"  name="fecha_legal">
+                                    <input type="date" id="fecha_legal"  name="fecha_legal" value="{{old('fecha_legal')}}">
                                 </div>
                                 <div class="col-6">
                                     <label for="fecha_concesion" class="mr-3">Fecha de Concesion:</label>
-                                    <input name="fecha_consecion" type="date" id="start">
+                                    <input name="fecha_consecion" value="{{old('fecha_consecion')}}" type="date" id="start">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-4">
                                     <label for="numero_marca">No. Marca o Registro</label>
-                                    <input name="numero_marca" type="text" class="form-control" id="numero_marca" placeholder="Numero de marca o regisro..">
+                                    <input name="numero_marca" value="{{old('numero_marca')}}" type="text" class="form-control" id="numero_marca" placeholder="Numero de marca o regisro..">
                                 </div>
                                 <div class="form-group col-4">
                                     <label for="clase">Clase</label>
-                                    <input name="clase" type="text" class="form-control" id="clase" placeholder="Clase">
+                                    <input name="clase" value="{{old('clase')}}" type="text" class="form-control" id="clase" placeholder="Clase">
                                 </div>
                                 <div class="form-group col-4">
                                     <label for="tipo_marca">Tipo de Marca</label>
-                                    <input name="tipo_marca" type="text" class="form-control" id="tipo_marca" placeholder="...tipo_marca">
+                                    <input name="tipo_marca" value="{{old('tipo_marca')}}" type="text" class="form-control" id="tipo_marca" placeholder="...tipo_marca">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
                                     <div class="col-6">
                                         <label for="fecha_primer_uso">Fecha primer uso</label>
-                                        <input  name="fecha_primer_uso" type="date" id="fecha_primer_uso">
+                                        <input  name="fecha_primer_uso" value="{{old('fecha_primer_uso')}}" type="date" id="fecha_primer_uso">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-6">
                                         <label for="fecha_renovacion">Fecha renovación</label>
-                                        <input  name="fecha_renovacion" type="date" id="fecha_renovacion">
+                                        <input  name="fecha_renovacion" value="{{old('fecha_renovacion')}}" type="date" id="fecha_renovacion">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-4">
                                     <label for="numero_oficina">Numero de Oficina</label>
-                                    <input name="numero_oficina" type="number" id="n_oficna" class="form-control">
+                                    <input name="numero_oficina" value="{{old('numero_oficina')}}" type="number" id="n_oficna" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="comentarios">comentarios</label>
-                                <textarea name="comentarios" class="form-control" id="comentarios"placeholder="...comentarios"></textarea>
+                                <label for="comentarios">Comentarios</label>
+                                <textarea name="comentarios" class="form-control" id="comentarios"placeholder="...comentarios">{{old('comentarios')}}</textarea>
                             </div>
                             <div class="form-group">
                                     <label for="fecha_comprobacion">Fecha de Comprobación </label>
-                                    <input  name="fecha_comprobacion" type="date" id="fecha_comprobacion">
+                                    <input  name="fecha_comprobacion" value="{{old('fecha_comprobacion')}}" type="date" id="fecha_comprobacion">
                             </div>
                             {{--Datos Dueño--}}
                             <div class="h3"><p> Dueño de la marca</p></div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="titulo_marca">Titular o Dueño de la marca</label>
-                                    <input name="titular_marca" type="text" class="form-control" id="titulo_marca">
+                                    <input name="titular_marca" value="{{old('titular_marca')}}" type="text" class="form-control" id="titulo_marca">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="titular_telefono">Telefono</label>
-                                    <input  name="titular_telefono" type="text" class="form-control" id="titular_telefono">
+                                    <input  name="titular_telefono" value="{{old('titular_telefono')}}" type="text" class="form-control" id="titular_telefono">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="titular_correo">Correo</label>
-                                    <input name="titular_correo" type="text" class="form-control" id="titular_correo">
+                                    <input name="titular_correo" value="{{old('titular_correo')}}" type="text" class="form-control" id="titular_correo">
                                 </div>
                             </div>
                             {{--Datos responsable--}}
@@ -133,39 +142,39 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                 <label for="responsable_marca">Responsable de la marca</label>
-                                <input name="responsable_marca" type="text" class="form-control" id="responsable_marca">
+                                <input name="responsable_marca" value="{{old('responsable_marca')}}" type="text" class="form-control" id="responsable_marca">
                                 </div>
                                 <div class="form-group col-md-6">
                                 <label for="responsable_puesto">Puesto</label>
-                                <input name="responsable_puesto" type="text" class="form-control" id="responsable_puesto">
+                                <input name="responsable_puesto" value="{{old('responsable_puesto')}}" type="text" class="form-control" id="responsable_puesto">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-4">
                                     <label for="responsable_calle">Calle</label>
-                                    <input name="responsable_calle" type="text" class="form-control" id="responsable_calle">
+                                    <input name="responsable_calle" value="{{old('responsable_calle')}}" type="text" class="form-control" id="responsable_calle">
                                 </div>
                                 <div class="form-group col-3">
                                     <label for="responsable_telefono">Telefono</label>
-                                    <input name="responsable_telefono" type="text" class="form-control" id="responsable_telefono">
+                                    <input name="responsable_telefono" value="{{old('responsable_telefono')}}" type="text" class="form-control" id="responsable_telefono">
                                 </div>
                                 <div class="form-group col-5">
                                     <label for="responsable_correo">Correo</label>
-                                    <input  name="responsable_correo" type="email" class="form-control" id="responsable_correo">
+                                    <input  name="responsable_correo" value="{{old('responsable_correo')}}" type="email" class="form-control" id="responsable_correo">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="responsable_colonia">Colonia</label>
-                                    <input name="responsable_colonia" type="text" class="form-control" id="colonia">
+                                    <input name="responsable_colonia" value="{{old('responsable_colonia')}}" type="text" class="form-control" id="colonia">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="responsable_cp">Codigo Postal</label>
-                                    <input name="responsable_cp" type="text" class="form-control" id="responsable_cp">
+                                    <input name="responsable_cp" value="{{old('responsable_cp')}}" type="text" class="form-control" id="responsable_cp">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="responsable_municipio">Municipio | Alcaldia</label>
-                                    <input name="responsable_municipio" type="text" class="form-control" id="responsable_municipio">
+                                    <input name="responsable_municipio" value="{{old('responsable_municipio')}}" type="text" class="form-control" id="responsable_municipio">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Agregar Registro</button>

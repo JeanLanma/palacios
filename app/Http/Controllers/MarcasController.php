@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Marcas;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MarcasController extends Controller
 {
@@ -37,13 +39,31 @@ class MarcasController extends Controller
      */
     public function store(Request $request)
     {
+
+        $data = $request->validate([
+            'img_tipo_marca' => 'nullable|image|mimes:jpeg,jpg,gif|max:2048',
+            'logo' => 'nullable|image|mimes:jpeg,jpg,gif|max:2048',
+        ]);
+
+
+
+        if(isset($data['img_tipo_marca'])){
+            $imgTipoMarcaName = $request->file('img_tipo_marca')->getClientOriginalName();
+            $imgTipoMarcaRoute = $request->file('img_tipo_marca')->storeAs('marcas', $imgTipoMarcaName, 'public');
+        }
+        if(isset($data['logo'])){
+            $imgLogoName = $request->file('logo')->getClientOriginalName();
+            $imgLogoRoute = $request->file('logo')->storeAs('logos', $imgLogoName, 'public');
+        }
+
+
         Marcas::create([
         'denominacion_marca' => $request['denominacion_marca'],
         'descripcion_clase' => $request['descripcion_clase'],
         'tipo' => $request['tipo'],
-        'img_tipo_marca' => $request['img_tipo_marca'] ?? 'Nominativo',
+        'img_tipo_marca' => $imgTipoMarcaRoute ?? 'Nominativo',
         'numero_expediente' => $request['numero_expediente'],
-        'logo' => $request['logo'] ?? 'no image',
+        'logo' => $imgLogoRoute ?? 'no image',
         'fecha_legal' => $request['fecha_legal'],
         'fecha_consecion' => $request['fecha_consecion'],
         'numero_marca' => $request['numero_marca'],
@@ -76,9 +96,15 @@ class MarcasController extends Controller
      * @param  \App\Models\Marcas  $marcas
      * @return \Illuminate\Http\Response
      */
-    public function show(Marcas $marcas)
+    public function show(Marcas $marcas, $id)
     {
-        //
+        $marca = Marcas::find($id);
+        return response($marca);
+    }
+    public function showAll()
+    {
+        $marca = Marcas::all();
+        return response($marca);
     }
 
     /**
@@ -100,9 +126,61 @@ class MarcasController extends Controller
      * @param  \App\Models\Marcas  $marcas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Marcas $marcas)
+    public function update(Request $request, Marcas $marcas, $id)
     {
-        //
+        $marca = Marcas::find($id);
+
+        $data = $request->validate([
+            'img_tipo_marca' => 'nullable|image|mimes:jpeg,jpg,gif|max:2048',
+            'logo' => 'nullable|image|mimes:jpeg,jpg,gif|max:2048',
+        ]);
+
+        if(isset($data['img_tipo_marca'])){
+            Storage::delete('marcas' . $marca->img_tipo_marca);
+            $imgTipoMarcaName = $request->file('img_tipo_marca')->getClientOriginalName();
+            $imgTipoMarcaRoute = $request->file('img_tipo_marca')->storeAs('marcas', $imgTipoMarcaName, 'public');
+
+            $marca->img_tipo_marca = $imgTipoMarcaRoute;
+        }
+        if(isset($data['logo'])){
+            Storage::delete('logos' . $marca->logo);
+            $imgLogoName = $request->file('logo')->getClientOriginalName();
+            $imgLogoRoute = $request->file('logo')->storeAs('logos', $imgLogoName, 'public');
+
+            $marca->logo = $imgLogoRoute;
+        }
+
+        $marca->denominacion_marca = $request['denominacion_marca'];
+        $marca->descripcion_clase = $request['descripcion_clase'];
+        $marca->tipo = $request['tipo'];
+        $marca->numero_expediente = $request['numero_expediente'];
+        $marca->fecha_legal = $request['fecha_legal'];        
+        $marca->numero_marca = $request['numero_marca'];
+        $marca->fecha_consecion = $request['fecha_consecion'];
+        $marca->clase = $request['clase'];
+        $marca->tipo_marca = $request['tipo_marca'];
+        $marca->fecha_primer_uso = $request['fecha_primer_uso'];
+        $marca->fecha_renovacion = $request['fecha_renovacion'];
+        $marca->numero_oficina = $request['numero_oficina'];
+        $marca->comentarios = $request['comentarios'];
+        $marca->fecha_comprobacion = $request['fecha_comprobacion'];
+        $marca->titular_marca = $request['titular_marca'];
+        $marca->titular_telefono = $request['titular_telefono'];
+        $marca->titular_correo = $request['titular_correo'];
+        $marca->responsable_marca = $request['comentarios'];
+        $marca->responsable_puesto = $request['responsable_puesto'];
+        $marca->responsable_telefono = $request['responsable_telefono'];
+        $marca->responsable_correo = $request['responsable_correo'];
+        $marca->responsable_calle = $request['comentarios'];
+        $marca->responsable_colonia = $request['responsable_colonia'];
+        $marca->responsable_cp = $request['responsable_cp'];
+        $marca->responsable_municipio = $request['responsable_municipio'];
+        $marca->updated_at = Carbon::now();
+
+        $marca->save();
+
+        return back();
+        
     }
 
     /**
