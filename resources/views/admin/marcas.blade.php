@@ -21,10 +21,10 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Denominacion Marca</th>
-                                    <th scope="col">Descripcio</th>
+                                    <th scope="col">Denominación Marca</th>
+                                    <th scope="col">Descripción</th>
                                     <th scope="col">Titular</th>
-                                    <th scope="col">Ver mas</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,10 +34,13 @@
                                     <td>{{$marca->denominacion_marca}}</td>
                                     <td>{{$marca->descripcion_clase}}</td>
                                     <td>{{$marca->titular_marca}}</td>
-                                    <td>
-                                        <a href="{{route('admin.marcas.edit', ['id'=> $marca->id])}}">
-                                            <button class="btn btn-warning">Detalles</button>
+                                    <td class="row">
+                                        <a class="col-md-6" href="{{route('admin.marcas.edit', ['id'=> $marca->id])}}">
+                                            <button class="btn btn-warning" title="Ver mas..."><i class="fas fa-user-edit"></i></button>
                                         </a>
+                                        <form class="col-md-6" action="">
+                                            <button class="btn btn-danger" title="Eliminar!"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach
