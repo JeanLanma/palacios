@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/marca/{id}', [MarcasController::class, 'show'])->name('api.marcas.show');
-Route::get('/marca', [MarcasController::class, 'showAll'])->name('api.marcas.showAll');
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
