@@ -230,16 +230,12 @@
             let file = $('#imgTipoMarca')[0].files[0];
             let url = URL.createObjectURL(file);
             preview.attr('src', url);
-            console.log(file);
-            alert(file.name);
         })
         let preview_logo = $('#preview_logo');
         $('#imgLogo').on('change', function(){
             let file = $('#imgLogo')[0].files[0];
             let url = URL.createObjectURL(file);
             preview_logo.attr('src', url);
-            console.log(file);
-            alert(file.name);
         });
 
         $(document).on('DOMContentLoaded', function(){
