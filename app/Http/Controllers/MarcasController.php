@@ -41,8 +41,33 @@ class MarcasController extends Controller
     {
 
         $data = $request->validate([
+            'denominacion_marca' => 'required',
             'img_tipo_marca' => 'nullable|image|mimes:jpeg,jpg,gif|max:2048',
             'logo' => 'nullable|image|mimes:jpeg,jpg,gif|max:2048',
+            'descripcion_clase' => 'required',
+            'tipo' => 'required',
+            'numero_expediente' => 'required',
+            'fecha_legal' => 'required',
+            'fecha_consecion' => 'required',
+            'numero_marca' => 'required',
+            'clase' =>' required',
+            'tipo_marca' => 'required',
+            'fecha_primer_uso' => 'required',
+            'fecha_renovacion' => 'required',
+            'numero_oficina' => 'required',
+            'comentarios' => 'required',
+            'fecha_comprobacion' => 'required',
+            'titular_marca' => 'required',
+            'titular_telefono' => 'required',
+            'titular_correo' => 'required',
+            'responsable_marca' => 'required',
+            'responsable_puesto' => 'required',
+            'responsable_calle' => 'required',
+            'responsable_telefono' => 'required',
+            'responsable_correo' => 'required',
+            'responsable_colonia' => 'required',
+            'responsable_cp' => 'required',
+            'responsable_municipio' => 'required',
         ]);
 
 
@@ -87,7 +112,7 @@ class MarcasController extends Controller
         'responsable_municipio' => $request['responsable_municipio'],
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with(['success'=>'Registro Agregado exitosamente!']);;
     }
 
     /**
@@ -134,52 +159,53 @@ class MarcasController extends Controller
             'img_tipo_marca' => 'nullable|image|mimes:jpeg,jpg,gif|max:2048',
             'logo' => 'nullable|image|mimes:jpeg,jpg,gif|max:2048',
         ]);
+        
 
         if(isset($data['img_tipo_marca'])){
-            Storage::delete('marcas' . $marca->img_tipo_marca);
+            Storage::delete('marcas/' . $marca->img_tipo_marca);
             $imgTipoMarcaName = $request->file('img_tipo_marca')->getClientOriginalName();
             $imgTipoMarcaRoute = $request->file('img_tipo_marca')->storeAs('marcas', $imgTipoMarcaName, 'public');
 
             $marca->img_tipo_marca = $imgTipoMarcaRoute;
         }
         if(isset($data['logo'])){
-            Storage::delete('logos' . $marca->logo);
+            Storage::delete('logos/' . $marca->logo);
             $imgLogoName = $request->file('logo')->getClientOriginalName();
             $imgLogoRoute = $request->file('logo')->storeAs('logos', $imgLogoName, 'public');
 
             $marca->logo = $imgLogoRoute;
         }
 
-        $marca->denominacion_marca = $request['denominacion_marca'];
-        $marca->descripcion_clase = $request['descripcion_clase'];
-        $marca->tipo = $request['tipo'];
-        $marca->numero_expediente = $request['numero_expediente'];
-        $marca->fecha_legal = $request['fecha_legal'];        
-        $marca->numero_marca = $request['numero_marca'];
-        $marca->fecha_consecion = $request['fecha_consecion'];
-        $marca->clase = $request['clase'];
-        $marca->tipo_marca = $request['tipo_marca'];
-        $marca->fecha_primer_uso = $request['fecha_primer_uso'];
-        $marca->fecha_renovacion = $request['fecha_renovacion'];
-        $marca->numero_oficina = $request['numero_oficina'];
-        $marca->comentarios = $request['comentarios'];
-        $marca->fecha_comprobacion = $request['fecha_comprobacion'];
-        $marca->titular_marca = $request['titular_marca'];
-        $marca->titular_telefono = $request['titular_telefono'];
-        $marca->titular_correo = $request['titular_correo'];
-        $marca->responsable_marca = $request['comentarios'];
-        $marca->responsable_puesto = $request['responsable_puesto'];
-        $marca->responsable_telefono = $request['responsable_telefono'];
-        $marca->responsable_correo = $request['responsable_correo'];
-        $marca->responsable_calle = $request['comentarios'];
-        $marca->responsable_colonia = $request['responsable_colonia'];
-        $marca->responsable_cp = $request['responsable_cp'];
-        $marca->responsable_municipio = $request['responsable_municipio'];
+        $marca->denominacion_marca = $request['denominacion_marca'] ?? '';
+        $marca->descripcion_clase = $request['descripcion_clase'] ?? '';
+        $marca->tipo = $request['tipo'] ?? '';
+        $marca->numero_expediente = $request['numero_expediente'] ?? '';
+        $marca->fecha_legal = $request['fecha_legal'] ?? '';        
+        $marca->numero_marca = $request['numero_marca'] ?? '';
+        $marca->fecha_consecion = $request['fecha_consecion'] ?? '';
+        $marca->clase = $request['clase'] ?? '';
+        $marca->tipo_marca = $request['tipo_marca'] ?? '';
+        $marca->fecha_primer_uso = $request['fecha_primer_uso'] ?? '';
+        $marca->fecha_renovacion = $request['fecha_renovacion'] ?? '';
+        $marca->numero_oficina = $request['numero_oficina'] ?? '';
+        $marca->comentarios = $request['comentarios'] ?? '';
+        $marca->fecha_comprobacion = $request['fecha_comprobacion'] ?? '';
+        $marca->titular_marca = $request['titular_marca'] ?? '';
+        $marca->titular_telefono = $request['titular_telefono'] ?? '';
+        $marca->titular_correo = $request['titular_correo'] ?? '';
+        $marca->responsable_marca = $request['comentarios'] ?? '';
+        $marca->responsable_puesto = $request['responsable_puesto'] ?? '';
+        $marca->responsable_telefono = $request['responsable_telefono'] ?? '';
+        $marca->responsable_correo = $request['responsable_correo'] ?? '';
+        $marca->responsable_calle = $request['comentarios'] ?? '';
+        $marca->responsable_colonia = $request['responsable_colonia'] ?? '';
+        $marca->responsable_cp = $request['responsable_cp'] ?? '';
+        $marca->responsable_municipio = $request['responsable_municipio'] ?? '';
         $marca->updated_at = Carbon::now();
 
         $marca->save();
 
-        return back();
+        return back()->with(['success'=>'Actualizado exitosamente!']);
         
     }
 

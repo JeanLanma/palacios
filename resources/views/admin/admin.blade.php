@@ -9,11 +9,18 @@
 @stop
 
 @section('content')
+@if(session()->has('success'))
+    <div class="error-notice" id="close-alert">
+        <div class="oaerror success">
+        <strong>Bien!</strong> - {{session()->get('success')}}
+        </div>
+    </div>
+@endif
 @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
+    <div class="error-notice">
+        <ul class="oaerror danger">
             @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+                <strong>Error </strong>- {{ $error }} <br>
             @endforeach
         </ul>
     </div>
@@ -188,11 +195,20 @@
 @stop
 
 @section('css')
+ <link rel="stylesheet" href="{{asset('assets/css/custome-alerts.css')}}">
 @stop
 
 @section('js')
 
     <script>
+    $(document).on('DOMContentLoaded', function(){
+        if($('#close-alert').length){
+            setTimeout(function(){
+                $('#close-alert').toggle('slow');
+            },3000);
+        }
+    });
+
         Date.prototype.toDateInputValue = (function() {
             var local = new Date(this);
             local.setMinutes(this.getMinutes() - this.getTimezoneOffset());

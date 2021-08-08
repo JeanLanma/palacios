@@ -9,25 +9,24 @@
 @stop
 
 @section('content')
-    <section class="content">
 
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="h3">Imagen de Marca</div>
-                        <img src="/storage/{{$marca->img_tipo_marca}}" class="img-fluid" alt="Imagen de tipo de marca">
-                    </div>
-                    <div class="col-md-6">
-                    <div class="h3">Imagen Logo</div>
-                        <img src="/storage/{{$marca->logo}}" class="img-fluid" alt="Logo de la marca">
-                    </div>
-                </div>
-            </div>
+@if(session()->has('success'))
+    <div class="error-notice" id="close-alert">
+        <div class="oaerror success">
+        <strong>Muy Bien!</strong> - {{session()->get('success')}}
         </div>
     </div>
-
+@endif
+@if ($errors->any())
+    <div class="error-notice">
+        <ul class="oaerror danger">
+            @foreach ($errors->all() as $error)
+                <strong>Error </strong>- {{ $error }}
+            @endforeach
+        </ul>
+    </div>
+@endif
+    <section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -65,6 +64,20 @@
                                     <input type="file" class="custom-file-input" id="imgTipoMarca" name="img_tipo_marca">
                                     <label class="custom-file-label" for="imgTipoMarca" data-browse="Buscar Archivo">Cargar imagen gif</label>
                                 </div>
+                                <div>
+                                    <div>
+                                        <div class="h4">Imagen de Marca</div>
+                                    </div>
+                                    @if($marca->img_tipo_marca  != 'Nominativo')
+                                    <div>
+                                        <img id="preview_imgTipoMarca" data-toggle="prev" class="img-thumbnail" width="200" height="200" src="/storage/{{$marca->img_tipo_marca}}">
+                                    </div>
+                                    @else
+                                    <div class="alert alert-light text-center" role="alert">
+                                        <h2>Sin Imagen</h2>
+                                    </div>
+                                    @endif
+                                </div>
                             </div>
 
                             {{-- Datos Generales --}}
@@ -77,6 +90,20 @@
                             <div class="custom-file mb-4">
                                     <input type="file" class="custom-file-input" id="imgLogo" name="logo">
                                     <label class="custom-file-label" for="logo" data-browse="Buscar Archivo">Cargar imagen gif</label>
+                            </div>
+                            <div>
+                                <div>
+                                    <div class="h4">Imagen Logo</div>
+                                </div>
+                                @if($marca->logo  != 'no image')
+                                <div>
+                                    <img id="preview_logo" data-toggle="prev" class="img-thumbnail" width="200" height="200" src="/storage/{{$marca->logo}}">
+                                </div>
+                                @else
+                                <div class="alert alert-light text-center" role="alert">
+                                    <h2>Sin Imagen</h2>
+                                </div>
+                                @endif
                             </div>
                             <div class="form-group row">
                                 <div class="col-6">
@@ -124,7 +151,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="comentarios">comentarios</label>
-                                <textarea name="comentarios" value="{{ $marca->comentarios }}" class="form-control" id="comentarios"placeholder="...comentarios"></textarea>
+                                <textarea name="comentarios" class="form-control" id="comentarios"placeholder="...comentarios"> {{ $marca->comentarios }}</textarea>
                             </div>
                             <div class="form-group">
                                     <label for="fecha_comprobacion">Fecha de Comprobación </label>
@@ -196,28 +223,35 @@
 </section>
 @stop
 
-@section('css')
+@section('js')
+    <script>
+        let preview = $('#preview_imgTipoMarca');
+        $('#imgTipoMarca').on('change',function(){
+            let file = $('#imgTipoMarca')[0].files[0];
+            let url = URL.createObjectURL(file);
+            preview.attr('src', url);
+            console.log(file);
+            alert(file.name);
+        })
+        let preview_logo = $('#preview_logo');
+        $('#imgLogo').on('change', function(){
+            let file = $('#imgLogo')[0].files[0];
+            let url = URL.createObjectURL(file);
+            preview_logo.attr('src', url);
+            console.log(file);
+            alert(file.name);
+        });
+
+        $(document).on('DOMContentLoaded', function(){
+            if($('#close-alert').length){
+                setTimeout(function(){
+                    $('#close-alert').toggle('slow');
+                },3000);
+            }
+        });
+    </script>
 @stop
 
-@section('js')
-{{--
-    <script>
-        Date.prototype.toDateInputValue = (function() {
-            var local = new Date(this);
-            local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-            return local.toJSON().slice(0,10);
-        });
-
-        $("#tipo").on('change',function(event){
-        event.preventDefault();
-        if(this.value != 'NOMINATIVO'){
-            $('#imgTipoMarca').prop("disabled", false);
-        } else{
-            $('#imgTipoMarca').prop("disabled", true);
-        }
-        });
-
-        $('input[type="date"]').val(new Date().toDateInputValue());
-    </script>
---}}
+@section('css')
+ <link rel="stylesheet" href="{{asset('assets/css/custome-alerts.css')}}">
 @stop
