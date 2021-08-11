@@ -7,12 +7,11 @@
     <h1>Palacios | <small>Inicio</small></h1>
 </div>
 @stop
-
 @section('content')
 @if(session()->has('success'))
     <div class="error-notice" id="close-alert">
         <div class="oaerror success">
-        <strong>Bien!</strong> - {{session()->get('success')}}
+            <strong>Bien!</strong> - {{session()->get('success')}}
         </div>
     </div>
 @endif
@@ -41,40 +40,33 @@
                                     <label for="denominacion_marca">Denominación Nombre de Marca</label>
                                     <input type="text" class="form-control" id="denominacion_marca" name="denominacion_marca" value="{{old('denominacion_marca')}}">
                                 </div>
+
                                 <div class="form-group col-md-6">
-                                    <label for="descripcion_clase">Descripción de la Clase</label>
-                                    <input type="text" class="form-control" id="descripcion_clase" name="descripcion_clase" value="{{old('descripcion_clase')}}">
+                                    <label for="tipo_de_marca">Tipo de Marcas: </label>
+                                    <select class="custom-select mb-4" id="tipo" name="tipo_de_marca">
+                                        <option disabled selected>-- Elegir un tipo --</option>
+                                        <option {{old('descripcion_clase')}}>NOMINATIVO</option>
+                                        <option {{old('descripcion_clase')}}>Mixta</option>
+                                        <option {{old('descripcion_clase')}}>Tridimensional </option>
+                                        <option {{old('descripcion_clase')}}>Innominada </option>
+                                    </select>
                                 </div>
+                                <small id="tipoMarcaHelp" class="form-text text-muted">
+                                     En caso de que sea tipo Mixta, Tridimensional o Innominada debe agregar una imagen. Nominativo no oncluye imagen
+                                    </small>
+                                    <!-- Imagen Logo -->
+                                    <div class="custom-file mb-4">
+                                            <input disabled type="file" class="custom-file-input" id="imgLogo" name="imagen_logo">
+                                            <label class="custom-file-label" for="imagen_logo" data-browse="Buscar Archivo">Cargar Logo en Imagen Gif</label>
+                                    </div>
                             </div>
                             
-                            <div class="form-group">
-                                <label for="tipo">Tipo de Marcas: </label>
-                                <select class="custom-select mb-4" id="tipo" name="tipo">
-                                    <option disabled selected>-- Elegir un tipo --</option>
-                                    <option {{old('descripcion_clase')}}>NOMINATIVO</option>
-                                    <option {{old('descripcion_clase')}}>Mixta</option>
-                                    <option {{old('descripcion_clase')}}>Tridimensional </option>
-                                    <option {{old('descripcion_clase')}}>Innominada </option>
-                                </select>
-                                <small id="tipoMarcaHelp" class="form-text text-muted">
-                                 En caso de que sea tipo Mixta, Tridimensional o Innominada debe agregar una imagen. Nominativo no oncluye imagen
-                                </small>
-                                <div class="custom-file">
-                                    <input disabled type="file" class="custom-file-input" id="imgTipoMarca" name="img_tipo_marca">
-                                    <label class="custom-file-label" for="imgTipoMarca" data-browse="Buscar Archivo">Cargar imagen gif</label>
-                                </div>
-                            </div>
 
                             {{-- Datos Generales --}}
                             
                             <div class="form-group">
-                                <label for="numero_expediente">Expediente</label>
+                                <label for="numero_expediente">Numero Expediente</label>
                                 <input type="text" class="form-control" id="numero_expediente" name="numero_expediente" value="{{old('numero_expediente')}}">
-                            </div>
-                            <label for="img_logo">Logo</label>
-                            <div class="custom-file mb-4">
-                                    <input type="file" class="custom-file-input" id="imgLogo" name="logo">
-                                    <label class="custom-file-label" for="logo" data-browse="Buscar Archivo">Cargar imagen gif</label>
                             </div>
                             <div class="form-group row">
                                 <div class="col-6">
@@ -93,11 +85,23 @@
                                 </div>
                                 <div class="form-group col-4">
                                     <label for="clase">Clase</label>
-                                    <input name="clase" value="{{old('clase')}}" type="text" class="form-control" id="clase" placeholder="Clase">
+                                    <input name="clase"  type="text" class="form-control" id="clase" placeholder="Clase">
                                 </div>
                                 <div class="form-group col-4">
-                                    <label for="tipo_marca">Tipo de Marca</label>
-                                    <input name="tipo_marca" value="{{old('tipo_marca')}}" type="text" class="form-control" id="tipo_marca" placeholder="...tipo_marca">
+
+                                    <label for="tipo_clase">Tipo de Clase: </label>
+                                    <select class="custom-select mb-4" id="tipo_clase" name="tipo_clase" value="{{old('tipo_clase')}}"">
+                                        <option disabled selected>-- Elegir Tipo de Clase --</option>
+                                        @for($i = 1; $i <= 45; $i++)
+                                            <option>{{$i}}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="descripcion_clase">Descripción de la Clase</label>
+                                    <textarea name="descripcion_clase"  class="form-control" rows="10" id="descripcion_clase">{{old('descripcion_clase')}}</textarea>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -142,6 +146,31 @@
                                 <div class="form-group col-md-4">
                                     <label for="titular_correo">Correo</label>
                                     <input name="titular_correo" value="{{old('titular_correo')}}" type="text" class="form-control" id="titular_correo">
+                                </div>
+                            </div>
+                            {{--Datos De Tramite--}}
+                            <div class="h3"><p> Status de Marca</p></div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                <label for="status_de_marca">Status de Marca</label>
+                                    <select class="custom-select" id="status_de_marca" name="status_de_marca">
+                                        <option disabled selected>-- Elegir un tipo --</option>
+                                        <option {{old('descripcion_clase')}}>En trámite</option>
+                                        <option {{old('descripcion_clase')}}>Registrada</option>
+                                        <option {{old('descripcion_clase')}}>Abandonada </option>
+                                        <option {{old('descripcion_clase')}}>Suspenso </option>
+                                        <option {{old('descripcion_clase')}}>Demanda </option>
+                                        <option {{old('descripcion_clase')}}>Caduca </option>
+                                        <option {{old('descripcion_clase')}}>Oficio IMPI </option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="proximo_tramite">Proximo Tramite</label>
+                                    <input name="proximo_tramite" value="{{old('proximo_tramite')}}" type="text" class="form-control" id="proximo_tramite">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="fecha_proximo_tramite">Fecha Proximo Tramite</label>
+                                    <input type="date" id="fecha_proximo_tramite"  name="fecha_proximo_tramite" value="{{old('fecha_proximo_tramite')}}">
                                 </div>
                             </div>
                             {{--Datos responsable--}}
@@ -218,9 +247,9 @@
         $("#tipo").on('change',function(event){
         event.preventDefault();
         if(this.value != 'NOMINATIVO'){
-            $('#imgTipoMarca').prop("disabled", false);
+            $('#imgLogo').prop("disabled", false);
         } else{
-            $('#imgTipoMarca').prop("disabled", true);
+            $('#imgLogo').prop("disabled", true);
         }
         });
 

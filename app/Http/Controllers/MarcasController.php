@@ -42,21 +42,22 @@ class MarcasController extends Controller
 
         $data = $request->validate([
             'denominacion_marca' => 'required',
-            'img_tipo_marca' => 'nullable|image|mimes:jpeg,jpg,gif|max:2048',
-            'logo' => 'nullable|image|mimes:jpeg,jpg,gif|max:2048',
+            'imagen_logo' => 'nullable|image|mimes:jpeg,jpg,gif|max:1024',
+            'tipo_de_marca' => 'required',
             'descripcion_clase' => 'required',
-            'tipo' => 'required',
             'numero_expediente' => 'required',
             'fecha_legal' => 'required',
             'fecha_consecion' => 'required',
             'numero_marca' => 'required',
             'clase' =>' required',
-            'tipo_marca' => 'required',
-            'fecha_primer_uso' => 'required',
+            'fecha_primer_uso' => 'nullable',
             'fecha_renovacion' => 'required',
             'numero_oficina' => 'required',
             'comentarios' => 'required',
             'fecha_comprobacion' => 'required',
+            'status_de_marca' => 'required',
+            'proximo_tramite' => 'required',
+            'fecha_proximo_tramite' => 'required',
             'titular_marca' => 'required',
             'titular_telefono' => 'required',
             'titular_correo' => 'required',
@@ -69,13 +70,8 @@ class MarcasController extends Controller
             'responsable_cp' => 'required',
             'responsable_municipio' => 'required',
         ]);
+        // dd($data);
 
-
-
-        if(isset($data['img_tipo_marca'])){
-            $imgTipoMarcaName = $request->file('img_tipo_marca')->getClientOriginalName();
-            $imgTipoMarcaRoute = $request->file('img_tipo_marca')->storeAs('marcas', $imgTipoMarcaName, 'public');
-        }
         if(isset($data['logo'])){
             $imgLogoName = $request->file('logo')->getClientOriginalName();
             $imgLogoRoute = $request->file('logo')->storeAs('logos', $imgLogoName, 'public');
@@ -85,20 +81,22 @@ class MarcasController extends Controller
         Marcas::create([
         'denominacion_marca' => $request['denominacion_marca'],
         'descripcion_clase' => $request['descripcion_clase'],
-        'tipo' => $request['tipo'],
-        'img_tipo_marca' => $imgTipoMarcaRoute ?? 'Nominativo',
+        'tipo_de_marca' => $request['tipo_de_marca'],
         'numero_expediente' => $request['numero_expediente'],
-        'logo' => $imgLogoRoute ?? 'no image',
+        'imagen_logo' => $imgLogoRoute ?? 'no image',
         'fecha_legal' => $request['fecha_legal'],
         'fecha_consecion' => $request['fecha_consecion'],
         'numero_marca' => $request['numero_marca'],
         'clase' => $request['clase'],
-        'tipo_marca' => $request['tipo_marca'],
+        'tipo_clase' => $request['tipo_clase'],
         'fecha_primer_uso' => $request['fecha_primer_uso'],
         'fecha_renovacion' => $request['fecha_renovacion'],
         'numero_oficina' => $request['numero_oficina'],
         'comentarios' => $request['comentarios'],
         'fecha_comprobacion' => $request['fecha_comprobacion'],
+        'status_de_marca' => $request['status_de_marca'],
+        'proximo_tramite' => $request['proximo_tramite'],
+        'fecha_proximo_tramite' => $request['fecha_proximo_tramite'],
         'titular_marca' => $request['titular_marca'],
         'titular_telefono' => $request['titular_telefono'],
         'titular_correo' => $request['titular_correo'],
