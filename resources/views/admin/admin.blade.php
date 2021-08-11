@@ -90,7 +90,7 @@
                                 <div class="form-group col-4">
 
                                     <label for="tipo_clase">Tipo de Clase: </label>
-                                    <select class="custom-select mb-4" id="tipo_clase" name="tipo_clase" value="{{old('tipo_clase')}}"">
+                                    <select class="custom-select mb-4" id="tipo_clase" name="tipo_clase" value="{{old('tipo_clase')}}">
                                         <option disabled selected>-- Elegir Tipo de Clase --</option>
                                         @for($i = 1; $i <= 45; $i++)
                                             <option>{{$i}}</option>

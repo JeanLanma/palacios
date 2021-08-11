@@ -43,41 +43,40 @@
                                     <input type="text" class="form-control" id="denominacion_marca" name="denominacion_marca" value="{{ $marca->denominacion_marca }}">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="descripcion_clase">Descripción de la Clase</label>
-                                    <input type="text" class="form-control" id="descripcion_clase" name="descripcion_clase" value="{{ $marca->descripcion_clase }}">
-                                </div>
+                                <label for="tipo_de_marca">Tipo de Marcas: </label>
+                                <select class="custom-select mb-4" id="tipo_de_marca" name="tipo_de_marca">
+                                    <option disabled>-- Elegir un tipo --</option>
+                                    <option @if($marca->tipo_de_marca == 'NOMINATIVO') selected @endif>NOMINATIVO</option>
+                                    <option @if($marca->tipo_de_marca == 'Mixta') selected @endif>Mixta</option>
+                                    <option @if($marca->tipo_de_marca == 'Tridimensional') selected @endif>Tridimensional </option>
+                                    <option @if($marca->tipo_de_marca == 'Innominada') selected @endif>Innominada </option>
+                                </select>
+                                </div>  
                             </div>
                             
+                            <!-- Logo input -->
                             <div class="form-group">
-                                <label for="tipo">Tipo de Marcas: </label>
-                                <select class="custom-select mb-4" id="tipo" name="tipo">
-                                    <option disabled>-- Elegir un tipo --</option>
-                                    <option @if($marca->tipo == 'NOMINATIVO') selected @endif>NOMINATIVO</option>
-                                    <option @if($marca->tipo == 'Mixta') selected @endif>Mixta</option>
-                                    <option @if($marca->tipo == 'Tridimensional') selected @endif>Tridimensional </option>
-                                    <option @if($marca->tipo == 'Innominada') selected @endif>Innominada </option>
-                                </select>
                                 <small id="tipoMarcaHelp" class="form-text text-muted">
                                  En caso de que sea tipo Mixta, Tridimensional o Innominada debe agregar una imagen. Nominativo no oncluye imagen
                                 </small>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="imgTipoMarca" name="img_tipo_marca">
-                                    <label class="custom-file-label" for="imgTipoMarca" data-browse="Buscar Archivo" id="imgTypeLabel">Cargar imagen gif</label>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="imgLogo" name="imagen_logo">
+                                    <label class="custom-file-label" for="imagen_logo" data-browse="Buscar Archivo" id="imgLogoLabel">Cargar imagen gif</label>
                                 </div>
+                            <div>
                                 <div>
-                                    <div>
-                                        <div class="h4">Imagen de Marca</div>
-                                    </div>
-                                    @if($marca->img_tipo_marca  != 'Nominativo')
-                                    <div>
-                                        <img id="preview_imgTipoMarca" data-toggle="prev" class="img-thumbnail" width="200" height="200" src="{{asset('/storage/'.$marca->img_tipo_marca)}}">
-                                    </div>
-                                    @else
-                                    <div class="alert alert-light text-center" role="alert">
-                                        <h2>Sin Imagen</h2>
-                                    </div>
-                                    @endif
+                                    <div class="h4">Logo</div>
                                 </div>
+                                @if($marca->imagen_logo  != 'no image')
+                                <div>
+                                    <img id="preview_logo" data-toggle="prev" class="img-thumbnail" width="200" height="200" src="/storage/{{$marca->imagen_logo}}">
+                                </div>
+                                @else
+                                <div class="alert alert-light text-center" role="alert">
+                                    <h2>Sin Imagen</h2>
+                                </div>
+                                @endif
+                            </div>
                             </div>
 
                             {{-- Datos Generales --}}
@@ -85,25 +84,6 @@
                             <div class="form-group">
                                 <label for="numero_expediente">Expediente</label>
                                 <input type="text" class="form-control" id="numero_expediente" name="numero_expediente" value="{{ $marca->numero_expediente }}">
-                            </div>
-                            <label for="img_logo">Logo</label>
-                            <div class="custom-file mb-4">
-                                    <input type="file" class="custom-file-input" id="imgLogo" name="logo">
-                                    <label class="custom-file-label" for="logo" data-browse="Buscar Archivo" id="imgLogoLabel">Cargar imagen gif</label>
-                            </div>
-                            <div>
-                                <div>
-                                    <div class="h4">Imagen Logo</div>
-                                </div>
-                                @if($marca->logo  != 'no image')
-                                <div>
-                                    <img id="preview_logo" data-toggle="prev" class="img-thumbnail" width="200" height="200" src="/storage/{{$marca->logo}}">
-                                </div>
-                                @else
-                                <div class="alert alert-light text-center" role="alert">
-                                    <h2>Sin Imagen</h2>
-                                </div>
-                                @endif
                             </div>
                             <div class="form-group row">
                                 <div class="col-6">
@@ -125,8 +105,20 @@
                                     <input name="clase" value="{{ $marca->clase }}" type="text" class="form-control" id="clase" placeholder="Clase">
                                 </div>
                                 <div class="form-group col-4">
-                                    <label for="tipo_marca">Tipo de Marca</label>
-                                    <input name="tipo_marca" value="{{ $marca->tipo_marca }}" type="text" class="form-control" id="tipo_marca" placeholder="...tipo_marca">
+
+                                    <label for="tipo_clase">Tipo de Clase: </label>
+                                    <select class="custom-select mb-4" id="tipo_clase" name="tipo_clase" value="{{old('tipo_clase')}}">
+                                        <option disabled selected>-- Elegir Tipo de Clase --</option>
+                                        @for($i = 1; $i <= 45; $i++)
+                                            <option @if($i == $marca->tipo_clase) selected @endif>{{$i}}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="descripcion_clase">Descripción de la Clase</label>
+                                    <textarea name="descripcion_clase"  class="form-control" rows="10" id="descripcion_clase">{{$marca->descripcion_clase}}</textarea>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -171,6 +163,31 @@
                                 <div class="form-group col-md-4">
                                     <label for="titular_correo">Correo</label>
                                     <input name="titular_correo" value="{{ $marca->titular_correo }}" type="text" class="form-control" id="titular_correo">
+                                </div>
+                            </div>
+                            {{--Datos De Tramite--}}
+                            <div class="h3"><p> Status de Marca</p></div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                <label for="status_de_marca">Status de Marca</label>
+                                    <select class="custom-select" id="status_de_marca" name="status_de_marca">
+                                        <option disabled>-- Elegir un tipo --</option>
+                                        <option @if($marca->tipo_clase =="En tramite") selected @endif>En tramite</option>
+                                        <option @if('Registrada' == $marca->status_de_marca) selected @endif>Registrada</option>
+                                        <option @if('Abandonada' == $marca->tipo_clase) selected @endif>Abandonada </option>
+                                        <option @if('Suspenso' == $marca->tipo_clase) selected @endif>Suspenso </option>
+                                        <option @if('Demanda' == $marca->tipo_clase) selected @endif>Demanda </option>
+                                        <option @if('Caduca' == $marca->tipo_clase) selected @endif>Caduca </option>
+                                        <option @if("Oficio IMPI" == $marca->tipo_clase) selected @endif>Oficio IMPI </option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="proximo_tramite">Proximo Tramite</label>
+                                    <input name="proximo_tramite" value="{{$marca->proximo_tramite}}" type="text" class="form-control" id="proximo_tramite">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="fecha_proximo_tramite">Fecha Proximo Tramite</label>
+                                    <input type="date" id="fecha_proximo_tramite"  name="fecha_proximo_tramite" value="{{$marca->fecha_proximo_tramite}}">
                                 </div>
                             </div>
                             {{--Datos responsable--}}

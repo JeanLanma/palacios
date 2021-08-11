@@ -154,36 +154,27 @@ class MarcasController extends Controller
         $marca = Marcas::find($id);
 
         $data = $request->validate([
-            'img_tipo_marca' => 'nullable|image|mimes:jpeg,jpg,gif|max:2048',
-            'logo' => 'nullable|image|mimes:jpeg,jpg,gif|max:2048',
+            'imagen_logo' => 'nullable|image|mimes:jpeg,jpg,gif|max:1024',
         ]);
         
+        if(isset($data['imagen_logo'])){
+            Storage::delete('logos/' . $marca->imagen_logo);
+            $imgLogoName = $request->file('imagen_logo')->getClientOriginalName();
+            $imgLogoRoute = $request->file('imagen_logo')->storeAs('logos', $imgLogoName, 'public');
 
-        if(isset($data['img_tipo_marca'])){
-            Storage::delete('marcas/' . $marca->img_tipo_marca);
-            $imgTipoMarcaName = $request->file('img_tipo_marca')->getClientOriginalName();
-            $imgTipoMarcaRoute = $request->file('img_tipo_marca')->storeAs('marcas', $imgTipoMarcaName, 'public');
-
-            $marca->img_tipo_marca = $imgTipoMarcaRoute;
-        }
-        if(isset($data['logo'])){
-            Storage::delete('logos/' . $marca->logo);
-            $imgLogoName = $request->file('logo')->getClientOriginalName();
-            $imgLogoRoute = $request->file('logo')->storeAs('logos', $imgLogoName, 'public');
-
-            $marca->logo = $imgLogoRoute;
+            $marca->imagen_logo = $imgLogoRoute;
         }
 
         $marca->denominacion_marca = $request['denominacion_marca'] ?? '';
         $marca->descripcion_clase = $request['descripcion_clase'] ?? '';
-        $marca->tipo = $request['tipo'] ?? '';
+        $marca->tipo_de_marca = $request['tipo_de_marca'] ?? '';
         $marca->numero_expediente = $request['numero_expediente'] ?? '';
         $marca->fecha_legal = $request['fecha_legal'] ?? '';        
         $marca->numero_marca = $request['numero_marca'] ?? '';
         $marca->fecha_consecion = $request['fecha_consecion'] ?? '';
         $marca->clase = $request['clase'] ?? '';
-        $marca->tipo_marca = $request['tipo_marca'] ?? '';
-        $marca->fecha_primer_uso = $request['fecha_primer_uso'] ?? '';
+        $marca->tipo_clase = $request['tipo_clase'] ?? '';
+        $marca->fecha_primer_uso = $request['fecha_primer_uso'];
         $marca->fecha_renovacion = $request['fecha_renovacion'] ?? '';
         $marca->numero_oficina = $request['numero_oficina'] ?? '';
         $marca->comentarios = $request['comentarios'] ?? '';
@@ -199,6 +190,9 @@ class MarcasController extends Controller
         $marca->responsable_colonia = $request['responsable_colonia'] ?? '';
         $marca->responsable_cp = $request['responsable_cp'] ?? '';
         $marca->responsable_municipio = $request['responsable_municipio'] ?? '';
+        $marca->status_de_marca = $request['status_de_marca'] ?? '';
+        $marca->proximo_tramite = $request['proximo_tramite'] ?? '';
+        $marca->fecha_proximo_tramite = $request['fecha_proximo_tramite'] ?? '';
         $marca->updated_at = Carbon::now();
 
         $marca->save();
