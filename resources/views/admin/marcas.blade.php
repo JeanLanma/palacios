@@ -38,7 +38,9 @@
                                         <a class="col-md-6" href="{{route('admin.marcas.edit', ['id'=> $marca->id])}}">
                                             <button class="btn btn-warning" title="Ver mas..."><i class="fas fa-user-edit"></i></button>
                                         </a>
-                                        <form class="col-md-6" action="">
+                                        <form method="POST" class="col-md-6" action="{{route('admin.marcas.destroy', ['id'=> $marca->id])}}">
+                                            @method('delete') 
+                                            @csrf
                                             <button class="btn btn-danger" title="Eliminar!"><i class="fas fa-trash-alt"></i></button>
                                         </form>
                                     </td>

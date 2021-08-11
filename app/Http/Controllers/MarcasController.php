@@ -215,8 +215,14 @@ class MarcasController extends Controller
      * @param  \App\Models\Marcas  $marcas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Marcas $marcas)
+    public function destroy(Marcas $marcas, $id)
     {
-        //
+        $marca = Marcas::find($id);
+
+        Storage::delete('marcas/' . $marca->img_tipo_marca);
+        Storage::delete('logos/' . $marca->img_tipo_marca);
+        $marca->delete();
+
+        return back();
     }
 }

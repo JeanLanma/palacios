@@ -70,7 +70,7 @@
                                     </div>
                                     @if($marca->img_tipo_marca  != 'Nominativo')
                                     <div>
-                                        <img id="preview_imgTipoMarca" data-toggle="prev" class="img-thumbnail" width="200" height="200" src="/storage/{{$marca->img_tipo_marca}}">
+                                        <img id="preview_imgTipoMarca" data-toggle="prev" class="img-thumbnail" width="200" height="200" src="{{asset('/storage/'.$marca->img_tipo_marca)}}">
                                     </div>
                                     @else
                                     <div class="alert alert-light text-center" role="alert">
