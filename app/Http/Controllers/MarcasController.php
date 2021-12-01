@@ -16,7 +16,8 @@ class MarcasController extends Controller
      */
     public function index()
     {
-        $marcas = Marcas::all();
+        $marcas = Marcas::paginate(2);
+        // return $marcas;
 
         return view('admin.marcas', compact('marcas'));
     }

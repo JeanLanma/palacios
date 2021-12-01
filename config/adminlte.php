@@ -238,12 +238,17 @@ return [
 
         // Sidebar items:
         [
-            'text'        => 'DASHBOARD',
+            'text'        => 'Agregar Marca',
             'url'         => 'admin',
             'icon'        => 'fas fa-tachometer-alt',
         ],
         [
-            'text'        => 'Registros',
+            'text'        => 'Clientes',
+            'url'         => 'admin/cllientes',
+            'icon'        => 'fas fa-users',
+        ],
+        [
+            'text'        => 'Marcas',
             'url'         => 'admin/registros',
             'icon'        => 'far fa-address-card',
         ],
