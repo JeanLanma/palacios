@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\MarcasController;
+use App\Http\Controllers\TitularMarcaController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -15,12 +16,11 @@ Route::post('/marcas', [MarcasController::class, 'store'])->name('admin.marcas.s
 Route::post('/marcas/{id}', [MarcasController::class, 'update'])->name('admin.marcas.update');
 
 // Titular
-Route::get('/titular', function(){
-    return view('admin.titular');
-})->name('admin.titular');
-Route::post('/titular', function(){
-    return 'Nuevo Titular Almacenado con exito';
-})->name('admin.titular.store');
+Route::get('/titular-select', function(){
+    return view('admin.select-titular');
+})->name('admin.titular.select');
+Route::get('/titular', [TitularMarcaController::class, 'index'])->name('admin.titular');
+Route::post('/titular', [TitularMarcaController::class, 'store'])->name('admin.titular.store');
 
 Route::get('/generate/storage/link', function(){
     Artisan::call('storage:link');

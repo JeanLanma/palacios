@@ -238,8 +238,8 @@ return [
 
         // Sidebar items:
         [
-            'text'        => 'Agregar Marca',
-            'url'         => 'admin',
+            'text'        => 'Nueva Marca',
+            'route'         => 'admin.titular.select',
             'icon'        => 'fas fa-tachometer-alt',
         ],
         [
@@ -252,7 +252,7 @@ return [
             'url'         => 'admin/registros',
             'icon'        => 'far fa-address-card',
         ],
-        ['header' => 'account_settings'],
+/*         ['header' => 'account_settings'],
         [
             'text' => 'profile',
             'url'  => '#',
@@ -262,7 +262,7 @@ return [
             'text' => 'change_password',
             'url'  => '#',
             'icon' => 'fas fa-fw fa-lock',
-        ]
+        ] */
     ],
 
     /*

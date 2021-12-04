@@ -108,7 +108,7 @@ class MarcasController extends Controller
         'responsable_municipio' => $request['responsable_municipio'],
         ]);
 
-        return redirect()->back()->with(['success'=>'Registro Agregado exitosamente!']);;
+        return redirect()->back()->with(['success'=>'Registro Agregado exitosamente!']);
     }
 
     /**
