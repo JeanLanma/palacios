@@ -22,7 +22,7 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col">id</th>
                                         <th scope="col">Denominación Marca</th>
                                         <th scope="col">Descripción</th>
                                         <th scope="col">Titular</th>
@@ -32,7 +32,7 @@
                                 <tbody>
                                     @foreach($marcas as $marca)
                                     <tr>
-                                        <th scope="row">{{$loop->iteration}}</th>
+                                        <th scope="row">{{$marca->id}}</th>
                                         <td>{{$marca->denominacion_marca}}</td>
                                         <td style="white-space: nowrap;text-overflow: ellipsis; overflow:hidden; max-width: 250px">@php $isLongText; echo substr($marca->descripcion_clase, 0, 105); strlen($marca->descripcion_clase) > 104 ? $isLongText = '...' : $isLongText = '';echo $isLongText; @endphp</td>
                                         <td>{{$marca->titular_marca}}</td>

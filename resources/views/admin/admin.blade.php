@@ -147,6 +147,34 @@
                                     <label for="titular_correo">Correo</label>
                                     <input name="titular_correo" value="{{old('titular_correo')}}" type="text" class="form-control" id="titular_correo">
                                 </div>
+                                
+                                <div class="form-row">
+                                    <!-- campos para telefono extra -->
+                                    <div class="form-group col-md-6">
+                                        <label for="responsable_marca">Responsable de la marca</label>
+                                        <input name="responsable_marca" value="{{old('responsable_marca')}}" type="text" class="form-control" id="responsable_marca">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="responsable_puesto">Puesto</label>
+                                        <input name="responsable_puesto" value="{{old('responsable_puesto')}}" type="text" class="form-control" id="responsable_puesto">
+                                    </div>
+                                    <!--  -->
+
+                                    <!-- Campos Fiscales -->
+                                    <div class="form-group col-4">
+                                        <label for="titular_facturar">Facturar</label>
+                                        <input name="titular_facturar" value="{{old('titular_facturar')}}" type="text" class="form-control" id="titular_facturar">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="titular_rfc">RFC</label>
+                                        <input name="titular_rfc" value="{{old('titular_facturar')}}" type="text" class="form-control" id="titular_rfc">
+                                    </div>
+                                    <div class="form-group col-5">
+                                        <label for="titular_domicilio_fiscal">Domicilio Fiscal</label>
+                                        <input  name="titular_domicilio_fiscal" value="{{old('titular_domicilio_fiscal')}}" type="email" class="form-control" id="titular_domicilio_fiscal">
+                                    </div>
+                                    <!--  -->
+                                </div>
                             </div>
                             {{--Datos De Tramite--}}
                             <div class="h3"><p> Status de Marca</p></div>

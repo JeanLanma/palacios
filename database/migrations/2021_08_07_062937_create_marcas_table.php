@@ -15,6 +15,7 @@ class CreateMarcasTable extends Migration
     {
         Schema::create('marcas', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('titular_id');
             $table->text('denominacion_marca');
             $table->text('tipo_de_marca');
             $table->text('imagen_logo');
@@ -33,9 +34,7 @@ class CreateMarcasTable extends Migration
             $table->text('status_de_marca');
             $table->text('proximo_tramite');
             $table->text('fecha_proximo_tramite');
-            $table->text('titular_marca');
-            $table->text('titular_telefono');
-            $table->text('titular_correo');
+            
             $table->text('responsable_marca');
             $table->text('responsable_puesto');
             $table->text('responsable_telefono');
@@ -45,6 +44,12 @@ class CreateMarcasTable extends Migration
             $table->text('responsable_cp');
             $table->text('responsable_municipio');
             $table->timestamps();
+
+            $table->foreign('titular_id')
+            ->references('id')
+            ->on('titular_marca')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
 
@@ -56,5 +61,8 @@ class CreateMarcasTable extends Migration
     public function down()
     {
         Schema::dropIfExists('marcas');
+        Schema::table('marcas', function (Blueprint $table) {
+            $table->dropForeign(['titular_id']);
+        });
     }
 }

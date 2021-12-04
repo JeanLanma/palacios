@@ -11,6 +11,7 @@ class Marcas extends Model
 
     protected $fillable = [
         'denominacion_marca',
+        'titular_id',
         'tipo_de_marca',
         'tipo_de_clase',
         'status_de_marca',
@@ -29,9 +30,6 @@ class Marcas extends Model
         'fecha_comprobacion',
         'proximo_tramite',
         'fecha_proximo_tramite',
-        'titular_marca',
-        'titular_telefono',
-        'titular_correo',
         'responsable_marca',
         'responsable_puesto',
         'responsable_calle',

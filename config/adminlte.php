@@ -243,8 +243,8 @@ return [
             'icon'        => 'fas fa-tachometer-alt',
         ],
         [
-            'text'        => 'Clientes',
-            'url'         => 'admin/cllientes',
+            'text'        => 'Clientes/Titular',
+            'route'       => 'admin.titular',
             'icon'        => 'fas fa-users',
         ],
         [
