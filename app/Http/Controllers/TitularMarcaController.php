@@ -18,7 +18,7 @@ class TitularMarcaController extends Controller
     }
     //Main table
     public function show(){
-        $titulares = TitularMarca::paginate(3);
+        $titulares = TitularMarca::paginate(5);
         return view('admin.titulares', compact('titulares'));
     }
     // Adding New register to DataBase

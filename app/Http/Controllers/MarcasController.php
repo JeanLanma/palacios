@@ -17,8 +17,7 @@ class MarcasController extends Controller
      */
     public function index()
     {
-        $marcas = Marcas::paginate(2);
-        // return $marcas;
+        $marcas = Marcas::paginate(5);
 
         return view('admin.marcas', compact('marcas'));
     }
@@ -180,11 +179,11 @@ class MarcasController extends Controller
         $marca->numero_oficina = $request['numero_oficina'] ?? '';
         $marca->comentarios = $request['comentarios'] ?? '';
         $marca->fecha_comprobacion = $request['fecha_comprobacion'] ?? '';
-        $marca->responsable_marca = $request['comentarios'] ?? '';
+        $marca->responsable_marca = $request['responsable_marca'] ?? '';
         $marca->responsable_puesto = $request['responsable_puesto'] ?? '';
         $marca->responsable_telefono = $request['responsable_telefono'] ?? '';
         $marca->responsable_correo = $request['responsable_correo'] ?? '';
-        $marca->responsable_calle = $request['comentarios'] ?? '';
+        $marca->responsable_calle = $request['responsable_calle'] ?? '';
         $marca->responsable_colonia = $request['responsable_colonia'] ?? '';
         $marca->responsable_cp = $request['responsable_cp'] ?? '';
         $marca->responsable_municipio = $request['responsable_municipio'] ?? '';

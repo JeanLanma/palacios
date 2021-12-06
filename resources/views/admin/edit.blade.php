@@ -176,6 +176,15 @@
                                     <label for="titulo_domicilio_fiscal">Domicilio Fiscal</label>
                                     <input disabled name="titular_domicilio_fiscal" value="{{ $titular->domicilio_fiscal }}" type="text" class="form-control" id="titulo_domicilio_fiscal">
                                 </div>
+                                <!-- Telefonos extra -->
+                                <div class="form-group col-md-4">
+                                    <label for="telefono_2">Telefono 2</label>
+                                    <input disabled  name="telefono_2" value="{{ $titular->telefono_2 }}" type="text" class="form-control" id="telefono_2">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="telefono_3">Telefono 3</label>
+                                    <input disabled  name="telefono_3" value="{{ $titular->telefono_3 }}" type="text" class="form-control" id="telefono_3">
+                                </div>
                                 <div class="form-group col-md-4">
                                     <!-- <label for="titular_id">Titular_id {{ $titular->id }}</label> -->
                                     <input disabled name="titular_id" value="{{ $titular->id}}" type="hidden" class="form-control" id="titular_id">
@@ -246,7 +255,7 @@
                                     <input name="responsable_municipio" value="{{ $marca->responsable_municipio }}" type="text" class="form-control" id="responsable_municipio">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Agregar Registro</button>
+                            <button type="submit" class="btn btn-primary">Actualizar Registro</button>
                         </form>
                     </div>
                 </div>
