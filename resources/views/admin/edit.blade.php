@@ -10,10 +10,10 @@
 
 @section('content')
 
-@if(session()->has('success'))
+@if(session()->has('msg'))
     <div class="error-notice" id="close-alert">
-        <div class="oaerror success">
-        <strong>Muy Bien!</strong> - {{session()->get('success')}}
+        <div class="oaerror {{session()->get('alert-type')}}">
+        <strong>Muy Bien!</strong> - {{session()->get('msg')}}
         </div> 
     </div>
 @endif
@@ -154,15 +154,31 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="titulo_marca">Titular o Dueño de la marca</label>
-                                    <input name="titular_marca" value="{{ $marca->titular_marca }}" type="text" class="form-control" id="titulo_marca">
+                                    <input disabled name="titular_marca" value="{{ $titular->nombre }}" type="text" class="form-control" id="titulo_marca">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="titular_telefono">Telefono</label>
-                                    <input  name="titular_telefono" value="{{ $marca->titular_telefono }}" type="text" class="form-control" id="titular_telefono">
+                                    <input disabled  name="titular_telefono" value="{{ $titular->telefono_1 }}" type="text" class="form-control" id="titular_telefono">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="titular_correo">Correo</label>
-                                    <input name="titular_correo" value="{{ $marca->titular_correo }}" type="text" class="form-control" id="titular_correo">
+                                    <input disabled name="titular_correo" value="{{ $titular->correo }}" type="text" class="form-control" id="titular_correo">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="titular_rfc">RFC</label>
+                                    <input disabled name="titular_rfc" value="{{ $titular->rfc }}" type="text" class="form-control" id="titular_rfc">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="titulo_facturar">Facturar</label>
+                                    <input disabled name="titular_facturar" value="{{ $titular->facturar }}" type="text" class="form-control" id="titulo_facturar">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="titulo_domicilio_fiscal">Domicilio Fiscal</label>
+                                    <input disabled name="titular_domicilio_fiscal" value="{{ $titular->domicilio_fiscal }}" type="text" class="form-control" id="titulo_domicilio_fiscal">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <!-- <label for="titular_id">Titular_id {{ $titular->id }}</label> -->
+                                    <input disabled name="titular_id" value="{{ $titular->id}}" type="hidden" class="form-control" id="titular_id">
                                 </div>
                             </div>
                             {{--Datos De Tramite--}}

@@ -1,18 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Registrar Nueva Marca')
 
 @section('content_header')
 <div>
-    <h1>Palacios | <small>Inicio</small></h1>
+    <h1>Registrar | <small>Marca</small></h1>
 </div>
 @stop
 @section('content')
-@if(session()->has('success'))
+@if(session()->has('msg'))
     <div class="error-notice" id="close-alert">
-        <div class="oaerror success">
-            <strong>Bien!</strong> - {{session()->get('success')}}
-        </div>
+        <div class="oaerror {{session()->get('alert-type')}}">
+        <strong>Muy Bien!</strong> - {{session()->get('msg')}}
+        </div> 
     </div>
 @endif
 @if ($errors->any())
@@ -132,46 +132,51 @@
                                     <label for="fecha_comprobacion">Fecha de Comprobación </label>
                                     <input  name="fecha_comprobacion" value="{{old('fecha_comprobacion')}}" type="date" id="fecha_comprobacion">
                             </div>
-                            {{--Datos Dueño--}}
+                            {{--Datos Dueño Titular--}}
                             <div class="h3"><p> Dueño de la marca</p></div>
                             <div class="form-row">
+                                
+                            {{-- Titular ID --}}
+                            <input name="titular_id" value="{{ $titular->id }}" type="hidden" class="form-control" id="titular_id">
+                            {{-- /Titular ID --}}
+                                
+                                
                                 <div class="form-group col-md-6">
                                     <label for="titulo_marca">Titular o Dueño de la marca</label>
-                                    <input name="titular_marca" value="{{old('titular_marca')}}" type="text" class="form-control" id="titulo_marca">
+                                    <input disabled name="titular_marca" value="{{$titular->nombre}}" type="text" class="form-control" id="titulo_marca">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="titular_telefono">Telefono</label>
-                                    <input  name="titular_telefono" value="{{old('titular_telefono')}}" type="text" class="form-control" id="titular_telefono">
+                                    <input disabled  name="titular_telefono" value="{{$titular->telefono_1}}" type="text" class="form-control" id="titular_telefono">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="titular_correo">Correo</label>
-                                    <input name="titular_correo" value="{{old('titular_correo')}}" type="text" class="form-control" id="titular_correo">
+                                    <input disabled name="titular_correo" value="{{$titular->correo}}" type="text" class="form-control" id="titular_correo">
                                 </div>
                                 
                                 <div class="form-row">
-                                    <!-- campos para telefono extra -->
+                                    
                                     <div class="form-group col-md-6">
-                                        <label for="responsable_marca">Responsable de la marca</label>
-                                        <input name="responsable_marca" value="{{old('responsable_marca')}}" type="text" class="form-control" id="responsable_marca">
+                                        <label for="telefono_2">Telefono 2</label>
+                                        <input disabled name="telefono_2" value="{{$titular->telefono_2}}" type="text" class="form-control" id="telefono_2">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="responsable_puesto">Puesto</label>
-                                        <input name="responsable_puesto" value="{{old('responsable_puesto')}}" type="text" class="form-control" id="responsable_puesto">
+                                        <label for="telefono_3">Telefono 3</label>
+                                        <input disabled name="telefono_3" value="{{$titular->telefono_3}}" type="text" class="form-control" id="telefono_3">
                                     </div>
-                                    <!--  -->
 
                                     <!-- Campos Fiscales -->
                                     <div class="form-group col-4">
                                         <label for="titular_facturar">Facturar</label>
-                                        <input name="titular_facturar" value="{{old('titular_facturar')}}" type="text" class="form-control" id="titular_facturar">
+                                        <input disabled name="titular_facturar" value="{{$titular->facturar}}" type="text" class="form-control" id="titular_facturar">
                                     </div>
                                     <div class="form-group col-3">
                                         <label for="titular_rfc">RFC</label>
-                                        <input name="titular_rfc" value="{{old('titular_facturar')}}" type="text" class="form-control" id="titular_rfc">
+                                        <input disabled name="titular_rfc" value="{{$titular->rfc}}" type="text" class="form-control" id="titular_rfc">
                                     </div>
                                     <div class="form-group col-5">
                                         <label for="titular_domicilio_fiscal">Domicilio Fiscal</label>
-                                        <input  name="titular_domicilio_fiscal" value="{{old('titular_domicilio_fiscal')}}" type="email" class="form-control" id="titular_domicilio_fiscal">
+                                        <input disabled  name="titular_domicilio_fiscal" value="{{$titular->domicilio_fiscal}}" type="text" class="form-control" id="titular_domicilio_fiscal">
                                     </div>
                                     <!--  -->
                                 </div>

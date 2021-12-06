@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Ver')
+@section('title', 'Añadir')
 
 @section('content_header')
 <div>
-    <h1>Palacios | <small>Ver</small></h1>
+    <h1>Palacios | <small>Añadir</small></h1>
 </div>
 @stop
 
@@ -33,29 +33,27 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <p class="h2">Seleccionar | Provedor/Titular</p>
+                        <p class="h2">Seleccionar | Titular</p>
 
-                        <form method="GET" action="{{ route('admin',['titular_id' => 1 ]) }}" enctype="multipart/form-data">
+                        <form method="GET" action="{{ route('admin.marcas.create',['titular_id' => 1 ]) }}" enctype="multipart/form-data">
                         @csrf
                             {{-- Tipo de Marcas --}}
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="tipo_de_marca">Tipo de Marcas: </label>
-                                    <select class="custom-select mb-4" id="tipo_de_marca" name="tipo_de_marca">
-                                        <option disabled selected>-- Elegir un Titular para continuar --</option>
-                                        {{--
-                                        <option @if($marca->tipo_de_marca == 'NOMINATIVO') selected @endif>NOMINATIVO</option>
-                                        <option @if($marca->tipo_de_marca == 'Mixta') selected @endif>Mixta</option>
-                                        <option @if($marca->tipo_de_marca == 'Tridimensional') selected @endif>Tridimensional </option>
-                                        <option @if($marca->tipo_de_marca == 'Innominada') selected @endif>Innominada </option>
-                                        --}}
+                                    <label for="tipo_de_marca">Seleccione un Titular: </label>
+                                    <select class="custom-select mb-4" id="selectTitular" name="titular_id">
+                                        <option disabled selected value="none">-- Elegir un Titular para continuar --</option>
+                                        @foreach($titulares as $titular)
+                                        <option value="{{$titular->id}}">{{$titular->nombre}} - RFC: {{ $titular->rfc }}</option>
+                                        @endforeach
                                     </select>
+                                    <small class="form-text text-muted">Debe seleccionar una opcion para continuar</small>
                                 </div> 
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Continuar</button>
+                                <button disabled class="btn btn-primary" type="submit" id="btnTitularSelection">Continuar</button>
                             </div> 
-                         </form>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -64,3 +62,18 @@
     </section>
 
 @endsection
+
+@section('js')
+<script>
+const btnSubmitForm = document.querySelector('#btnTitularSelection');
+const titular = document.querySelector('#selectTitular');
+
+titular.addEventListener('change', (e) => {
+    if(e.target.value && e.target.value == 'none'){
+        btnSubmitForm.disabled = true;
+        return;
+    }
+    btnSubmitForm.disabled = false;
+});
+</script>
+@stop

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Marcas;
+use App\Models\TitularMarca;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -27,9 +28,10 @@ class MarcasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $titular = TitularMarca::find($request->titular_id);
+        return view('admin.registrar-marca', compact('titular'));
     }
 
     /**
@@ -42,6 +44,7 @@ class MarcasController extends Controller
     {
 
         $data = $request->validate([
+            'titular_id' => 'required',
             'denominacion_marca' => 'required',
             'imagen_logo' => 'nullable|image|mimes:jpeg,jpg,gif|max:1024',
             'tipo_de_marca' => 'required',
@@ -59,9 +62,6 @@ class MarcasController extends Controller
             'status_de_marca' => 'required',
             'proximo_tramite' => 'required',
             'fecha_proximo_tramite' => 'required',
-            'titular_marca' => 'required',
-            'titular_telefono' => 'required',
-            'titular_correo' => 'required',
             'responsable_marca' => 'required',
             'responsable_puesto' => 'required',
             'responsable_calle' => 'required',
@@ -80,6 +80,7 @@ class MarcasController extends Controller
 
 
         Marcas::create([
+        'titular_id' => $request['titular_id'],
         'denominacion_marca' => $request['denominacion_marca'],
         'descripcion_clase' => $request['descripcion_clase'],
         'tipo_de_marca' => $request['tipo_de_marca'],
@@ -108,7 +109,7 @@ class MarcasController extends Controller
         'responsable_municipio' => $request['responsable_municipio'],
         ]);
 
-        return redirect()->back()->with(['success'=>'Registro Agregado exitosamente!']);
+        return redirect()->back()->with(['msg'=>'Registro Agregado exitosamente!', 'alert-type' => 'success']);
     }
 
     /**
@@ -137,7 +138,8 @@ class MarcasController extends Controller
     public function edit(Marcas $marcas, $id)
     {
         $marca = Marcas::find($id);
-        return view('admin.edit', compact('marca'));
+        $titular = TitularMarca::find($marca->titular_id);
+        return view('admin.edit', compact(['marca', 'titular']));
     }
 
     /**
@@ -164,6 +166,7 @@ class MarcasController extends Controller
         }
 
         $marca->denominacion_marca = $request['denominacion_marca'] ?? '';
+        // $marca->titular_id = $request['titular_id'];
         $marca->descripcion_clase = $request['descripcion_clase'] ?? '';
         $marca->tipo_de_marca = $request['tipo_de_marca'] ?? '';
         $marca->numero_expediente = $request['numero_expediente'] ?? '';
@@ -177,9 +180,6 @@ class MarcasController extends Controller
         $marca->numero_oficina = $request['numero_oficina'] ?? '';
         $marca->comentarios = $request['comentarios'] ?? '';
         $marca->fecha_comprobacion = $request['fecha_comprobacion'] ?? '';
-        $marca->titular_marca = $request['titular_marca'] ?? '';
-        $marca->titular_telefono = $request['titular_telefono'] ?? '';
-        $marca->titular_correo = $request['titular_correo'] ?? '';
         $marca->responsable_marca = $request['comentarios'] ?? '';
         $marca->responsable_puesto = $request['responsable_puesto'] ?? '';
         $marca->responsable_telefono = $request['responsable_telefono'] ?? '';
@@ -195,7 +195,7 @@ class MarcasController extends Controller
 
         $marca->save();
 
-        return back()->with(['success'=>'Actualizado exitosamente!']);
+        return back()->with(['msg'=>'Actualizado Exitosamente!', 'alert-type' => 'info']);
         
     }
 
@@ -205,7 +205,7 @@ class MarcasController extends Controller
      * @param  \App\Models\Marcas  $marcas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Marcas $marcas, $id)
+    public function destroy($id)
     {
         $marca = Marcas::find($id);
 

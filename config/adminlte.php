@@ -238,18 +238,23 @@ return [
 
         // Sidebar items:
         [
-            'text'        => 'Nueva Marca',
+            'text'        => 'Añadir Marca',
             'route'         => 'admin.titular.select',
             'icon'        => 'fas fa-tachometer-alt',
         ],
         [
-            'text'        => 'Clientes/Titular',
+            'text'        => 'Añadir Titular',
             'route'       => 'admin.titular',
             'icon'        => 'fas fa-users',
         ],
         [
-            'text'        => 'Marcas',
+            'text'        => 'Ver Marcas',
             'url'         => 'admin/registros',
+            'icon'        => 'far fa-address-card',
+        ],
+        [
+            'text'        => 'Ver Titulares',
+            'route'         => 'admin.titulares.show',
             'icon'        => 'far fa-address-card',
         ],
 /*         ['header' => 'account_settings'],
