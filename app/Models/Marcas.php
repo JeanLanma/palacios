@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Marcas extends Model
 {
@@ -25,9 +26,9 @@ class Marcas extends Model
         'descripcion_clase',
         'fecha_primer_uso',
         'fecha_renovacion',
-        'numero_oficina',
+        'numero_de_oficina',
         'comentarios',
-        'fecha_comprobacion',
+        'fecha_de_comprobacion',
         'proximo_tramite',
         'fecha_proximo_tramite',
         'responsable_marca',
@@ -39,4 +40,11 @@ class Marcas extends Model
         'responsable_cp',
         'responsable_municipio',
     ];
+
+    public function getTitularAttribute(){
+        return DB::table('titulares')->where('id', $this->titular_id)->first(['titular_nombre']);
+    }
+
+    protected $appends = ['titular'];
+
 }

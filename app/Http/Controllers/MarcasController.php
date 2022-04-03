@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Marcas;
-use App\Models\TitularMarca;
+use App\Models\Titulares;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class MarcasController extends Controller
@@ -29,7 +30,7 @@ class MarcasController extends Controller
      */
     public function create(Request $request)
     {
-        $titular = TitularMarca::find($request->titular_id);
+        $titular = Titulares::find($request->titular_id);
         return view('admin.registrar-marca', compact('titular'));
     }
 
@@ -45,32 +46,33 @@ class MarcasController extends Controller
         $data = $request->validate([
             'titular_id' => 'required',
             'denominacion_marca' => 'required',
-            'imagen_logo' => 'nullable|image|mimes:jpeg,jpg,gif|max:1024',
             'tipo_de_marca' => 'required',
-            'descripcion_clase' => 'required',
             'numero_expediente' => 'required',
             'fecha_legal' => 'required',
-            'fecha_consecion' => 'required',
-            'numero_marca' => 'required',
             'clase' =>' required',
+            'descripcion_clase' => 'required',
+
+            'imagen_logo' => 'nullable|image|mimes:jpeg,jpg,gif|max:1024',
+            'fecha_consecion' => 'nullable',
+            'numero_marca' => 'nullable',
             'fecha_primer_uso' => 'nullable',
-            'fecha_renovacion' => 'required',
-            'numero_oficina' => 'required',
-            'comentarios' => 'required',
-            'fecha_comprobacion' => 'required',
-            'status_de_marca' => 'required',
-            'proximo_tramite' => 'required',
-            'fecha_proximo_tramite' => 'required',
-            'responsable_marca' => 'required',
-            'responsable_puesto' => 'required',
-            'responsable_calle' => 'required',
-            'responsable_telefono' => 'required',
-            'responsable_correo' => 'required',
-            'responsable_colonia' => 'required',
-            'responsable_cp' => 'required',
-            'responsable_municipio' => 'required',
+            'fecha_renovacion' => 'nullable',
+            'numero_de_oficina' => 'nullable',
+            'comentarios' => 'nullable',
+            'fecha_de_comprobacion' => 'nullable',
+            'status_de_marca' => 'nullable',
+            'proximo_tramite' => 'nullable',
+            'fecha_proximo_tramite' => 'nullable',
+            
+            'responsable_marca' => 'nullable|string',
+            'responsable_puesto' => 'nullable|string',
+            'responsable_calle' => 'nullable|string',
+            'responsable_telefono' => 'nullable',
+            'responsable_correo' => 'nullable|email',
+            'responsable_colonia' => 'nullable',
+            'responsable_cp' => 'nullable',
+            'responsable_municipio' => 'nullable|string',
         ]);
-        // dd($data);
 
         if(isset($data['logo'])){
             $imgLogoName = $request->file('logo')->getClientOriginalName();
@@ -80,6 +82,7 @@ class MarcasController extends Controller
 
         Marcas::create([
         'titular_id' => $request['titular_id'],
+        
         'denominacion_marca' => $request['denominacion_marca'],
         'descripcion_clase' => $request['descripcion_clase'],
         'tipo_de_marca' => $request['tipo_de_marca'],
@@ -89,15 +92,15 @@ class MarcasController extends Controller
         'fecha_consecion' => $request['fecha_consecion'],
         'numero_marca' => $request['numero_marca'],
         'clase' => $request['clase'],
-        'tipo_clase' => $request['tipo_clase'],
         'fecha_primer_uso' => $request['fecha_primer_uso'],
         'fecha_renovacion' => $request['fecha_renovacion'],
-        'numero_oficina' => $request['numero_oficina'],
+        'numero_de_oficina' => $request['numero_de_oficina'] ?? null,
         'comentarios' => $request['comentarios'],
-        'fecha_comprobacion' => $request['fecha_comprobacion'],
+        'fecha_de_comprobacion' => $request['fecha_de_comprobacion'],
         'status_de_marca' => $request['status_de_marca'],
         'proximo_tramite' => $request['proximo_tramite'],
         'fecha_proximo_tramite' => $request['fecha_proximo_tramite'],
+
         'responsable_marca' => $request['responsable_marca'],
         'responsable_puesto' => $request['responsable_puesto'],
         'responsable_calle' => $request['responsable_calle'],
@@ -105,7 +108,7 @@ class MarcasController extends Controller
         'responsable_correo' => $request['responsable_correo'],
         'responsable_colonia' => $request['responsable_colonia'],
         'responsable_cp' => $request['responsable_cp'],
-        'responsable_municipio' => $request['responsable_municipio'],
+        'responsable_municipio' => $request['responsable_municipio'] ?? null
         ]);
 
         return redirect()->back()->with(['msg'=>'Registro Agregado exitosamente!', 'alert-type' => 'success']);
@@ -137,7 +140,7 @@ class MarcasController extends Controller
     public function edit(Marcas $marcas, $id)
     {
         $marca = Marcas::find($id);
-        $titular = TitularMarca::find($marca->titular_id);
+        $titular = Titulares::find($marca->titular_id);
         return view('admin.edit', compact(['marca', 'titular']));
     }
 
@@ -164,32 +167,46 @@ class MarcasController extends Controller
             $marca->imagen_logo = $imgLogoRoute;
         }
 
-        $marca->denominacion_marca = $request['denominacion_marca'] ?? '';
-        // $marca->titular_id = $request['titular_id'];
-        $marca->descripcion_clase = $request['descripcion_clase'] ?? '';
-        $marca->tipo_de_marca = $request['tipo_de_marca'] ?? '';
-        $marca->numero_expediente = $request['numero_expediente'] ?? '';
-        $marca->fecha_legal = $request['fecha_legal'] ?? '';        
-        $marca->numero_marca = $request['numero_marca'] ?? '';
-        $marca->fecha_consecion = $request['fecha_consecion'] ?? '';
-        $marca->clase = $request['clase'] ?? '';
-        $marca->tipo_clase = $request['tipo_clase'] ?? '';
+        $validations = request()->validate([
+            'denominacion_marca' => 'required',
+            'descripcion_clase' => 'required',
+            'tipo_de_marca' => 'required',
+            'fecha_legal' => 'required',
+            'numero_expediente' => 'required',
+            'clase' => 'required',
+            'responsable_marca' => 'required',
+        ]);
+
+        // Obligatorios
+        $marca->denominacion_marca = $request['denominacion_marca'];
+        $marca->descripcion_clase = $request['descripcion_clase'];
+        $marca->tipo_de_marca = $request['tipo_de_marca'] ;
+        $marca->fecha_legal = $request['fecha_legal'];        
+        $marca->numero_expediente = $request['numero_expediente'];
+        $marca->clase = $request['clase'];
+
+        $marca->numero_marca = $request['numero_marca'];
+        $marca->fecha_consecion = $request['fecha_consecion'];
         $marca->fecha_primer_uso = $request['fecha_primer_uso'];
-        $marca->fecha_renovacion = $request['fecha_renovacion'] ?? '';
-        $marca->numero_oficina = $request['numero_oficina'] ?? '';
-        $marca->comentarios = $request['comentarios'] ?? '';
-        $marca->fecha_comprobacion = $request['fecha_comprobacion'] ?? '';
+        $marca->fecha_renovacion = $request['fecha_renovacion'];
+        $marca->numero_de_oficina = $request['numero_de_oficina'];
+        $marca->comentarios = $request['comentarios'];
+        $marca->fecha_de_comprobacion = $request['fecha_de_comprobacion'];
+        $marca->status_de_marca = $request['status_de_marca'];
+        $marca->proximo_tramite = $request['proximo_tramite'];
+        $marca->fecha_proximo_tramite = $request['fecha_proximo_tramite'];
+
+        // Obligatorio
         $marca->responsable_marca = $request['responsable_marca'] ?? '';
-        $marca->responsable_puesto = $request['responsable_puesto'] ?? '';
+
+        $marca->responsable_puesto = $request['responsable_puesto'];
         $marca->responsable_telefono = $request['responsable_telefono'] ?? '';
         $marca->responsable_correo = $request['responsable_correo'] ?? '';
         $marca->responsable_calle = $request['responsable_calle'] ?? '';
         $marca->responsable_colonia = $request['responsable_colonia'] ?? '';
         $marca->responsable_cp = $request['responsable_cp'] ?? '';
         $marca->responsable_municipio = $request['responsable_municipio'] ?? '';
-        $marca->status_de_marca = $request['status_de_marca'] ?? '';
-        $marca->proximo_tramite = $request['proximo_tramite'] ?? '';
-        $marca->fecha_proximo_tramite = $request['fecha_proximo_tramite'] ?? '';
+        
         $marca->updated_at = Carbon::now();
 
         $marca->save();

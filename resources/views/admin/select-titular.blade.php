@@ -26,7 +26,6 @@
         </ul>
     </div>
 @endif
-
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -44,10 +43,17 @@
                                     <select class="custom-select mb-4" id="selectTitular" name="titular_id">
                                         <option disabled selected value="none">-- Elegir un Titular para continuar --</option>
                                         @foreach($titulares as $titular)
-                                        <option value="{{$titular->id}}">{{$titular->nombre}} - RFC: {{ $titular->rfc }}</option>
+                                        <option value="{{$titular->id}}">{{$titular->titular_nombre}} - {{ $titular->rfc ? 'rfc: '.$titular->rfc : 'correo: '.$titular->correo  }}</option>
                                         @endforeach
                                     </select>
-                                    <small class="form-text text-muted">Debe seleccionar una opcion para continuar</small>
+
+                                    @if (count($titulares) === 0)
+                                        <div class="alert alert-light" role="alert">
+                                            ¡Parece que no hay titulares! <a href="{{route('admin.titular.add')}}" class="alert-link">Agregar un titular</a>
+                                        </div>
+                                    @else
+                                        <small class="form-text text-muted">Debe seleccionar una opcion para poder continuar<span class="text-danger">*</span></small>
+                                    @endif
                                 </div> 
                             </div>
                             <div class="form-group">

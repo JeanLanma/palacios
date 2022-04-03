@@ -96,23 +96,13 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-4">
+                                <div class="form-group col-6">
                                     <label for="numero_marca">No. Marca o Registro</label>
                                     <input name="numero_marca" value="{{ $marca->numero_marca }}" type="text" class="form-control" id="numero_marca" placeholder="Numero de marca o regisro..">
                                 </div>
-                                <div class="form-group col-4">
+                                <div class="form-group col-6">
                                     <label for="clase">Clase</label>
                                     <input name="clase" value="{{ $marca->clase }}" type="text" class="form-control" id="clase" placeholder="Clase">
-                                </div>
-                                <div class="form-group col-4">
-
-                                    <label for="tipo_clase">Tipo de Clase: </label>
-                                    <select class="custom-select mb-4" id="tipo_clase" name="tipo_clase" value="{{old('tipo_clase')}}">
-                                        <option disabled selected>-- Elegir Tipo de Clase --</option>
-                                        @for($i = 1; $i <= 45; $i++)
-                                            <option @if($i == $marca->tipo_clase) selected @endif>{{$i}}</option>
-                                        @endfor
-                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -153,8 +143,8 @@
                             <div class="h3"><p> Dueño de la marca</p></div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="titulo_marca">Titular o Dueño de la marca</label>
-                                    <input disabled name="titular_marca" value="{{ $titular->nombre }}" type="text" class="form-control" id="titulo_marca">
+                                    <label for="titular_nombre">Titular o Dueño de la marca</label>
+                                    <input disabled name="titular_nombre" value="{{ $titular->titular_nombre }}" type="text" class="form-control" id="titular_nombre">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="titular_telefono">Telefono</label>
@@ -176,14 +166,14 @@
                                     <label for="titulo_domicilio_fiscal">Domicilio Fiscal</label>
                                     <input disabled name="titular_domicilio_fiscal" value="{{ $titular->domicilio_fiscal }}" type="text" class="form-control" id="titulo_domicilio_fiscal">
                                 </div>
-                                <!-- Telefonos extra -->
+                                <!-- Telefono extra & Domicilio del dueño -->
                                 <div class="form-group col-md-4">
                                     <label for="telefono_2">Telefono 2</label>
                                     <input disabled  name="telefono_2" value="{{ $titular->telefono_2 }}" type="text" class="form-control" id="telefono_2">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="telefono_3">Telefono 3</label>
-                                    <input disabled  name="telefono_3" value="{{ $titular->telefono_3 }}" type="text" class="form-control" id="telefono_3">
+                                    <label for="domicilio_titular">Domicilio del titular</label>
+                                    <input disabled  name="telefono_3" value="{{ $titular->domicilio_del_titular }}" type="text" class="form-control" id="telefono_3">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <!-- <label for="titular_id">Titular_id {{ $titular->id }}</label> -->

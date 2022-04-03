@@ -31,7 +31,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2>Ver Marcas Registradas</h2>
+                        <h2>Titulares</h2>
                         <br>
                         <div class="table-responsive-sm">
 
@@ -49,8 +49,8 @@
                                     @foreach($titulares as $titular)
                                     <tr>
                                         <th scope="row">{{$titular->id}}</th>
-                                        <td>{{$titular->nombre}}</td>
-                                        <td>{{ $titular->rfc }}</td>
+                                        <td>{{$titular->titular_nombre}}</td>
+                                        <td>{{ $titular->rfc ?? '---' }}</td>
                                         <td>{{$titular->domicilio_fiscal}}</td>
                                         <td class="row">
                                             <a class="col-md-6" href="{{route('admin.titular.edit', ['titular'=> $titular->id])}}">

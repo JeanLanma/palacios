@@ -4,7 +4,7 @@
 
 @section('content_header')
 <div>
-    <h1> Registrar Nuevo | <small>Cliente</small></h1>
+    <h1> Editar | <small>cliente</small></h1>
 </div>
 @stop
 @section('content')
@@ -36,15 +36,15 @@
                             <div class="h3"><p> Titular de la marca</p></div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="titulo_marca">Titular o Dueño de la marca</label>
-                                        <input name="nombre" value="{{old('nombre') ?? $titular->nombre}}" type="text" class="form-control" id="titulo_marca">
+                                        <label for="titular_nombre">Titular o Dueño de la marca</label> <span class="text-danger">*</span>
+                                        <input name="titular_nombre" value="{{old('titular_nombre') ?? $titular->titular_nombre}}" type="text" class="form-control" id="titular_nombre">
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="titular_telefono">Telefono</label>
                                         <input  name="telefono_1" value="{{old('telefono_1') ?? $titular->telefono_1}}" type="text" class="form-control" id="titular_telefono">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="titular_correo">Correo</label>
+                                        <label for="titular_correo">Correo</label><span class="text-danger">*</span>
                                         <input name="correo" value="{{old('correo') ?? $titular->correo}}" type="text" class="form-control" id="titular_correo">
                                     </div>
                                     
@@ -55,14 +55,14 @@
                                             <input name="telefono_2" value="{{old('telefono_2') ?? $titular->telefono_2}}" type="text" class="form-control" id="responsable_marca">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="telefono_3">Telefono 3</label>
-                                            <input name="telefono_3" value="{{old('telefono_3') ?? $titular->telefono_3}}" type="text" class="form-control" id="responsable_puesto">
+                                            <label for="domicilio_titular">Domicilio del titular</label>
+                                            <input name="domicilio_titular" value="{{old('domicilio_titular') ?? $titular->domicilio_titular}}" type="text" class="form-control" id="domicilio_titular">
                                         </div>
                                         <!--  -->
 
                                         <!-- Campos Fiscales -->
                                         <div class="form-group col-4">
-                                            <label for="titular_facturar">Facturar</label>
+                                            <label for="titular_facturar">Facturar</label><span class="text-danger">*</span>
                                             <input name="facturar" value="{{old('facturar') ?? $titular->facturar}}" type="text" class="form-control" id="titular_facturar">
                                         </div>
                                         <div class="form-group col-3">
@@ -70,7 +70,7 @@
                                             <input name="rfc" value="{{old('facturar') ?? $titular->rfc}}" type="text" class="form-control" id="titular_rfc">
                                         </div>
                                         <div class="form-group col-5">
-                                            <label for="domicilio_fiscal">Domicilio Fiscal</label>
+                                            <label for="domicilio_fiscal">Domicilio Fiscal</label><span class="text-danger">*</span>
                                             <input  name="domicilio_fiscal" value="{{old('domicilio_fiscal') ?? $titular->domicilio_fiscal}}" type="text" class="form-control" id="titular_domicilio_fiscal">
                                         </div>
                                         <!--  -->

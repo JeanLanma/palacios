@@ -37,27 +37,38 @@
                             {{-- Tipo de Marcas --}}
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="denominacion_marca">Denominación Nombre de Marca</label>
+                                    <label for="denominacion_marca">Denominación/Nombre de Marca</label> <span class="text-danger">*</span>
                                     <input type="text" class="form-control" id="denominacion_marca" name="denominacion_marca" value="{{old('denominacion_marca')}}">
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="tipo_de_marca">Tipo de Marcas: </label>
+                                    <label for="tipo_de_marca">Tipo de Marca: </label><span class="text-danger">*</span>
                                     <select class="custom-select mb-4" id="tipo" name="tipo_de_marca">
                                         <option disabled selected>-- Elegir un tipo --</option>
-                                        <option {{old('descripcion_clase')}}>NOMINATIVO</option>
-                                        <option {{old('descripcion_clase')}}>Mixta</option>
-                                        <option {{old('descripcion_clase')}}>Tridimensional </option>
-                                        <option {{old('descripcion_clase')}}>Innominada </option>
+                                        <option {{old('tipo_de_marca') === 'NOMINATIVO' ? 'selected' : '' ;}}>NOMINATIVO</option>
+                                        <option {{old('tipo_de_marca') === 'Mixta' ? 'selected' : '' ;}}>Mixta</option>
+                                        <option {{old('tipo_de_marca') === 'Tridimensional' ? 'selected' : '' ;}}>Tridimensional </option>
+                                        <option {{old('tipo_de_marca') === 'Innominada' ? 'selected' : '' ;}}>Innominada </option>
                                     </select>
                                 </div>
                                 <small id="tipoMarcaHelp" class="form-text text-muted">
-                                     En caso de que sea tipo Mixta, Tridimensional o Innominada debe agregar una imagen. Nominativo no oncluye imagen
-                                    </small>
+                                    En caso de que sea tipo Mixta, Tridimensional o Innominada debe agregar una imagen. Nominativo no incluye imagen
+                                </small>
                                     <!-- Imagen Logo -->
                                     <div class="custom-file mb-4">
                                             <input disabled type="file" class="custom-file-input" id="imgLogo" name="imagen_logo">
-                                            <label class="custom-file-label" for="imagen_logo" data-browse="Buscar Archivo">Cargar Logo en Imagen Gif</label>
+                                            <label class="custom-file-label" for="imagen_logo" data-browse="Buscar Archivo" id="logoTextContent">Cargar Logo en Imagen Gif</label>
+                                    </div>
+                                    {{-- Preview logo --}}
+                                    <div class="d-none" id="preview_logo_container">
+                                        <div>
+                                            <div class="h4">Logo</div>
+                                        </div>
+                                        
+                                        <div>
+                                            <img id="preview_logo_img" data-toggle="prev" class="img-thumbnail" width="200" height="200">
+                                        </div>
+                                        
                                     </div>
                             </div>
                             
@@ -65,12 +76,12 @@
                             {{-- Datos Generales --}}
                             
                             <div class="form-group">
-                                <label for="numero_expediente">Numero Expediente</label>
+                                <label for="numero_expediente">Numero Expediente</label><span class="text-danger">*</span>
                                 <input type="text" class="form-control" id="numero_expediente" name="numero_expediente" value="{{old('numero_expediente')}}">
                             </div>
                             <div class="form-group row">
                                 <div class="col-6">
-                                    <label for="fecha_legal">Fecha Legal | Ingreso al IMPI:</label>
+                                    <label for="fecha_legal">Fecha Legal | Ingreso al IMPI:</label><span class="text-danger">*</span>
                                     <input type="date" id="fecha_legal"  name="fecha_legal" value="{{old('fecha_legal')}}">
                                 </div>
                                 <div class="col-6">
@@ -79,28 +90,18 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-4">
+                                <div class="form-group col-6">
                                     <label for="numero_marca">No. Marca o Registro</label>
                                     <input name="numero_marca" value="{{old('numero_marca')}}" type="text" class="form-control" id="numero_marca" placeholder="Numero de marca o regisro..">
                                 </div>
-                                <div class="form-group col-4">
-                                    <label for="clase">Clase</label>
-                                    <input name="clase"  type="text" class="form-control" id="clase" placeholder="Clase">
-                                </div>
-                                <div class="form-group col-4">
-
-                                    <label for="tipo_clase">Tipo de Clase: </label>
-                                    <select class="custom-select mb-4" id="tipo_clase" name="tipo_clase" value="{{old('tipo_clase')}}">
-                                        <option disabled selected>-- Elegir Tipo de Clase --</option>
-                                        @for($i = 1; $i <= 45; $i++)
-                                            <option>{{$i}}</option>
-                                        @endfor
-                                    </select>
+                                <div class="form-group col-6">
+                                    <label for="clase">Clase</label><span class="text-danger">*</span>
+                                    <input name="clase" value="{{old('clase')}}"  type="text" class="form-control" id="clase" placeholder="Clase">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
-                                    <label for="descripcion_clase">Descripción de la Clase</label>
+                                    <label for="descripcion_clase">Descripción de la Clase</label><span class="text-danger">*</span>
                                     <textarea name="descripcion_clase"  class="form-control" rows="10" id="descripcion_clase">{{old('descripcion_clase')}}</textarea>
                                 </div>
                             </div>
@@ -120,8 +121,8 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-4">
-                                    <label for="numero_oficina">Numero de Oficina</label>
-                                    <input name="numero_oficina" value="{{old('numero_oficina')}}" type="number" id="n_oficna" class="form-control">
+                                    <label for="numero_de_oficina">Numero de Oficina</label>
+                                    <input name="numero_de_oficina" value="{{old('numero_de_oficina')}}" type="number" id="numero_de_oficina" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -129,8 +130,8 @@
                                 <textarea name="comentarios" class="form-control" id="comentarios"placeholder="...comentarios">{{old('comentarios')}}</textarea>
                             </div>
                             <div class="form-group">
-                                    <label for="fecha_comprobacion">Fecha de Comprobación </label>
-                                    <input  name="fecha_comprobacion" value="{{old('fecha_comprobacion')}}" type="date" id="fecha_comprobacion">
+                                    <label for="fecha_de_comprobacion">Fecha de Comprobación </label>
+                                    <input  name="fecha_de_comprobacion" value="{{old('fecha_de_comprobacion')}}" type="date" id="fecha_de_comprobacion">
                             </div>
                             {{--Datos Dueño Titular--}}
                             <div class="h3"><p> Dueño de la marca</p></div>
@@ -142,8 +143,8 @@
                                 
                                 
                                 <div class="form-group col-md-6">
-                                    <label for="titulo_marca">Titular o Dueño de la marca</label>
-                                    <input disabled name="titular_marca" value="{{$titular->nombre}}" type="text" class="form-control" id="titulo_marca">
+                                    <label for="titular_nombre">Titular o Dueño de la marca</label>
+                                    <input disabled name="titular_nombre" value="{{$titular->titular_nombre}}" type="text" class="form-control" id="titular_nombre">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="titular_telefono">Telefono</label>
@@ -161,8 +162,8 @@
                                         <input disabled name="telefono_2" value="{{$titular->telefono_2}}" type="text" class="form-control" id="telefono_2">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="telefono_3">Telefono 3</label>
-                                        <input disabled name="telefono_3" value="{{$titular->telefono_3}}" type="text" class="form-control" id="telefono_3">
+                                        <label for="domicilio_titular">Domicilio del titular</label>
+                                        <input disabled name="domicilio_titular" value="{{$titular->domicilio_titular}}" type="text" class="form-control" id="domicilio_titular">
                                     </div>
 
                                     <!-- Campos Fiscales -->
@@ -182,19 +183,19 @@
                                 </div>
                             </div>
                             {{--Datos De Tramite--}}
-                            <div class="h3"><p> Status de Marca</p></div>
+                            <div class="h3"><p> Estatus de Marca</p></div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                 <label for="status_de_marca">Status de Marca</label>
                                     <select class="custom-select" id="status_de_marca" name="status_de_marca">
                                         <option disabled selected>-- Elegir un tipo --</option>
-                                        <option {{old('descripcion_clase')}}>En trámite</option>
-                                        <option {{old('descripcion_clase')}}>Registrada</option>
-                                        <option {{old('descripcion_clase')}}>Abandonada </option>
-                                        <option {{old('descripcion_clase')}}>Suspenso </option>
-                                        <option {{old('descripcion_clase')}}>Demanda </option>
-                                        <option {{old('descripcion_clase')}}>Caduca </option>
-                                        <option {{old('descripcion_clase')}}>Oficio IMPI </option>
+                                        <option {{old('status_de_marca') === 'En trámite' ? 'selected': null}}>En trámite</option>
+                                        <option {{old('status_de_marca')=== 'Registrada' ? 'selected': null}}>Registrada</option>
+                                        <option {{old('status_de_marca')=== 'Abandonada' ? 'selected': null}}>Abandonada </option>
+                                        <option {{old('status_de_marca')=== 'Suspenso' ? 'selected': null}}>Suspenso </option>
+                                        <option {{old('status_de_marca')=== 'Demanda' ? 'selected': null}}>Demanda </option>
+                                        <option {{old('status_de_marca')=== 'Caduca' ? 'selected': null}}>Caduca </option>
+                                        <option {{old('status_de_marca')=== 'Oficio IMPI' ? 'selected': null}}>Oficio IMPI </option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-4">
@@ -271,21 +272,27 @@
         }
     });
 
-        Date.prototype.toDateInputValue = (function() {
-            var local = new Date(this);
-            local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-            return local.toJSON().slice(0,10);
-        });
+    $('#imgLogo').on('change', function(){
+        const file = $('#imgLogo')[0].files[0];
+        const imgSrc = URL.createObjectURL(file);
+        $('#preview_logo_img').attr('src', imgSrc);
+        $('#logoTextContent').addClass('bg-primary text-white');
+        $('#logoTextContent').text(file.name);
+    });
+    
 
         $("#tipo").on('change',function(event){
-        event.preventDefault();
-        if(this.value != 'NOMINATIVO'){
-            $('#imgLogo').prop("disabled", false);
-        } else{
-            $('#imgLogo').prop("disabled", true);
-        }
+            event.preventDefault();
+            const logoPreviewContainer = $('#preview_logo_container');
+            if(this.value != 'NOMINATIVO'){
+                logoPreviewContainer.removeClass('d-none');
+                $('#imgLogo').prop("disabled", false);
+            } else{
+                if(!logoPreviewContainer.hasClass('d-none')){
+                    logoPreviewContainer.addClass('d-none');
+                }
+                $('#imgLogo').prop("disabled", true);
+            }
         });
-
-        $('input[type="date"]').val(new Date().toDateInputValue());
     </script>
 @stop

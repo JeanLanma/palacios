@@ -22,7 +22,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2>Ver Marcas Registradas</h2>
+                        <h2>Marcas Registradas</h2>
                         <br>
                         <div class="table-responsive-sm">
 
@@ -30,19 +30,19 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">id</th>
-                                        <th scope="col">Denominación Marca</th>
+                                        <th scope="col">Denominación</th>
                                         <th scope="col">Descripción</th>
                                         <th scope="col">Titular</th>
-                                        <th scope="col">Acciones</th>
+                                        <th scope="col" style="width: 8rem;">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($marcas as $marca)
                                     <tr>
                                         <th scope="row">{{$marca->id}}</th>
-                                        <td>{{$marca->denominacion_marca}}</td>
-                                        <td style="white-space: nowrap;text-overflow: ellipsis; overflow:hidden; max-width: 250px">@php $isLongText; echo substr($marca->descripcion_clase, 0, 105); strlen($marca->descripcion_clase) > 104 ? $isLongText = '...' : $isLongText = '';echo $isLongText; @endphp</td>
-                                        <td>{{$marca->titular_marca}}</td>
+                                        <td style="width:.3rem;">{{$marca->denominacion_marca}}</td>
+                                        <td style="text-overflow: ellipsis; overflow:hidden; max-width: 150px; font-size: .8rem;">@php $isLongText; echo substr($marca->descripcion_clase, 0, 55); strlen($marca->descripcion_clase) > 104 ? $isLongText = '...' : $isLongText = '';echo $isLongText; @endphp</td>
+                                        <td>{{ $marca->titular->titular_nombre }}</td>
                                         <td class="row">
                                             <a class="col-md-6" href="{{route('admin.marcas.edit', ['id'=> $marca->id])}}">
                                                 <button class="btn btn-warning" title="Ver mas..."><i class="fas fa-user-edit"></i></button>
@@ -73,6 +73,7 @@
         </div>
     </div>
 </section>
+
 @stop
 
 @section('css')

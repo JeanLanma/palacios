@@ -36,15 +36,15 @@
                             <div class="h3"><p> Titular de la marca</p></div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="titulo_marca">Titular o Dueño de la marca</label>
-                                        <input name="nombre" value="{{old('nombre')}}" type="text" class="form-control" id="titulo_marca">
+                                        <label for="titular_nombre">Titular o Dueño de la marca <span class="text-danger">*</span> </label>
+                                        <input name="titular_nombre" value="{{old('titular_nombre')}}" type="text" class="form-control" id="titular_nombre">
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="titular_telefono">Telefono</label>
                                         <input  name="telefono_1" value="{{old('telefono_1')}}" type="text" class="form-control" id="titular_telefono">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="titular_correo">Correo</label>
+                                        <label for="titular_correo">Correo<span class="text-danger">*</span> </label>
                                         <input name="correo" value="{{old('correo')}}" type="text" class="form-control" id="titular_correo">
                                     </div>
                                     
@@ -55,14 +55,14 @@
                                             <input name="telefono_2" value="{{old('telefono_2')}}" type="text" class="form-control" id="responsable_marca">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="telefono_3">Telefono 3</label>
+                                            <label for="telefono_3">Domicilio del titular</label>
                                             <input name="telefono_3" value="{{old('telefono_3')}}" type="text" class="form-control" id="responsable_puesto">
                                         </div>
                                         <!--  -->
 
                                         <!-- Campos Fiscales -->
                                         <div class="form-group col-4">
-                                            <label for="titular_facturar">Facturar</label>
+                                            <label for="titular_facturar">Facturar<span class="text-danger">*</span> </label>
                                             <input name="facturar" value="{{old('facturar')}}" type="text" class="form-control" id="titular_facturar">
                                         </div>
                                         <div class="form-group col-3">
@@ -70,7 +70,7 @@
                                             <input name="rfc" value="{{old('facturar')}}" type="text" class="form-control" id="titular_rfc">
                                         </div>
                                         <div class="form-group col-5">
-                                            <label for="domicilio_fiscal">Domicilio Fiscal</label>
+                                            <label for="domicilio_fiscal">Domicilio Fiscal<span class="text-danger">*</span> </label>
                                             <input  name="domicilio_fiscal" value="{{old('domicilio_fiscal')}}" type="text" class="form-control" id="titular_domicilio_fiscal">
                                         </div>
                                         <!--  -->

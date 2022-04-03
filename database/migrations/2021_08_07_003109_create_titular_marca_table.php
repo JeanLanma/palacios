@@ -13,16 +13,16 @@ class CreateTitularMarcaTable extends Migration
      */
     public function up()
     {
-        Schema::create('titular_marca', function (Blueprint $table) {
+        Schema::create('titulares', function (Blueprint $table) {
             $table->id();
-            $table->text('nombre');
+            $table->text('titular_nombre');
             $table->text('correo');
             $table->text('facturar');
-            $table->text('rfc');
+            $table->text('rfc')->nullable();
             $table->text('domicilio_fiscal');
-            $table->text('telefono_1');
+            $table->text('telefono_1')->nullable();
             $table->text('telefono_2')->nullable();
-            $table->text('telefono_3')->nullable();
+            $table->text('domicilio_titular')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ class CreateTitularMarcaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('titular_marca');
+        Schema::dropIfExists('titulares');
     }
 }

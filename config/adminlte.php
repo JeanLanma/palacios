@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Palacios</b> System',
+    'logo' => '<b>De palacio</b> System',
     'logo_img' => 'images/palacio.png',
     'logo_img_class' => 'brand-image img-circle',
     'logo_img_xl' => null,
@@ -244,7 +244,7 @@ return [
         ],
         [
             'text'        => 'Añadir Titular',
-            'route'       => 'admin.titular',
+            'route'       => 'admin.titular.add',
             'icon'        => 'fas fa-users',
         ],
         [
@@ -254,20 +254,9 @@ return [
         ],
         [
             'text'        => 'Ver Titulares',
-            'route'         => 'admin.titulares.show',
+            'route'         => 'admin.titular.show',
             'icon'        => 'far fa-address-card',
-        ],
-/*         ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => '#',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => '#',
-            'icon' => 'fas fa-fw fa-lock',
-        ] */
+        ]
     ],
 
     /*
